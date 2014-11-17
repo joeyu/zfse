@@ -2,22 +2,25 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports.traverse =   traverse;   // Traverses a directory
-module.exports.rrmdir   =   rrmdir;     // Recursively removes a directory
+module.exports.rrmdir   =   rrmdirSync; // Recursively removes a directory
+module.exports.find     =   find;       // Find files according to a specified file name pattern
 
 // traverse(dir, callback [,callback_arg1 [,callback_arg2...]])
 //
 // Traverses through the specified dir tree, and apply the specificed 'callback' function
 // to each file node with optional 'callback_arg' arguments passed to the function.
-function traverse(path, callback) {
+function traverse(fpath, callback) {
     var cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
     var stat = fs.lstatSync(fpath);
     if (stat.isDirectory()) {
-        var files = fs.readdirSync(dir);
+        var files = fs.readdirSync(fpath);
         files.forEach(function (f) {
-            traverse(path.join(path, f), callback, cbArgs);
+            var args = [path.join(fpath, f), callback, cbArgs];
+            traverse.apply(this, args);
         });
     }
-    callback(path, cbArgs);
+    var args = [fpath, cbArgs];
+    callback.apply(this, args);
 }
 
 // rrmdirSync(dir)
@@ -25,13 +28,13 @@ function traverse(path, callback) {
 // Recursively removes a directory
 // When 'dir' is single file, this function works in the same way as fs.unlinkSync()
 function rrmdirSync(dir) {
-    traverse(dir, function (f) {
+    traverse(dir, function (fpath) {
         var stat = fs.lstatSync(fpath);
         if (stat.isDirectory()) {
-            fs.rmdirSync(f);
+            fs.rmdirSync(fpath);
         }
         else {
-            fs.unlinkSync(f);
+            fs.unlinkSync(fpath);
         }
     });
 }
@@ -39,7 +42,7 @@ function rrmdirSync(dir) {
 // rrenameSync(dir, oldNamePattern, newName))
 function rrenameSync(dir, oldNamePattern, newName, isDryRun) {
     isDryRun = true;
-    traverse(dir, function (fpath, isDryRun) {
+    traverse(dir, function (fpath) {
         var basename = path.basename(fpath);
         var dirname = path.dirname(fpath);
         var basename2 = basename.replace(oldNamePattern, newName);
@@ -53,5 +56,29 @@ function rrenameSync(dir, oldNamePattern, newName, isDryRun) {
     });
 }
 
-    
+// find(dir)
+function find(dir, namePattern, callback) {
+    var cbArgs = Array.prototype.slice.call(arguments, 3); // gets callback arguments
+    if (typeof namePattern === 'function') {
+        callback = namePattern; // no namePattern, but callback only
+        cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
+    }
+    traverse (dir, function (fpath) {
+        if (namePattern) {
+            var basename = path.basename(fpath);
+            if (namePattern.exec(basename)) {
+                console.log(fpath);
+            }
+        }
+        else { //matched anything
+            console.log(fpath);
+        }
+
+        if (callback) {
+            callback.apply(this, cbArgs);
+        }
+    });
+}
+
+
 
