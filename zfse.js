@@ -16,11 +16,10 @@ function traverse(fpath, callback) {
     if (stat.isDirectory()) {
         var files = fs.readdirSync(fpath);
         files.forEach(function (f) {
-            var args = [path.join(fpath, f), callback, cbArgs];
-            traverse.apply(undefined, args);
+            traverse.apply(undefined, [path.join(fpath, f), callback].concat(cbArgs));
         });
     }
-    callback.apply(undefined, cbArgs.unshift(fpath));
+    callback.apply(undefined, [fpath].concat(cbArgs));
 }
 
 // rrmdirSync(dir)
@@ -104,7 +103,7 @@ function find(dir, namePattern, callback) {
         }
 
         if (callback) {
-            callback.apply(undefined, cbArgs.unshift(fpath));
+            callback.apply(undefined, [fpath].concat(cbArgs));
         }
     });
 }
