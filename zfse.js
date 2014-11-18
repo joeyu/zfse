@@ -22,10 +22,13 @@ function traverse(fpath, callback) {
     callback.apply(undefined, [fpath].concat(cbArgs));
 }
 
-// rrmdirSync(dir)
+// rrmdirSync(dir[, options])
 //
 // Recursively removes a directory
 // When 'dir' is single file, this function works in the same way as fs.unlinkSync()
+// 'options': 
+//      isDryRun (false)    - dry-runs the function w/o actually renaming (default: false)
+//      isVerbose (false)   - verbose log messages
 function rrmdirSync(dir, options) {
     var isDryRun = false;
     var isVerbose = false;
@@ -53,7 +56,12 @@ function rrmdirSync(dir, options) {
     });
 }
 
-// rrenameSync(dir, oldNamePattern, newName))
+// rrenameSync(dir, oldNamePattern, newName[, options]))
+//
+// Recursively rename files matching the 'oldNamePattern' regex to 'newName'
+// 'options': 
+//      isDryRun (false)    - dry-runs the function w/o actually renaming (default: false)
+//      isVerbose (false)   - verbose log messages
 function rrenameSync(dir, oldNamePattern, newName, options) {
     var isDryRun = false;
     var isVerbose = false;
