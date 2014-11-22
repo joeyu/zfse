@@ -1,0 +1,170 @@
+{
+    "project": {},
+    "files": {
+        "zfse.js": {
+            "name": "zfse.js",
+            "modules": {
+                "zfse": 1
+            },
+            "classes": {
+                "zfse": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "zfse": {
+            "name": "zfse",
+            "submodules": {},
+            "classes": {
+                "zfse": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "zfse.js",
+            "line": 9,
+            "description": "Zhou's File System Extension extends the functionality of the 'fs' module of node.js."
+        }
+    },
+    "classes": {
+        "zfse": {
+            "name": "zfse",
+            "shortname": "zfse",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "zfse",
+            "namespace": "",
+            "file": "zfse.js",
+            "line": 9,
+            "description": "The module class",
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "zfse.js",
+            "line": 18,
+            "description": "Traverses through the specified 'dir' directory tree, and apply the \nspecificed 'callback' function to each file node with optional \n'callback_arg' arguments passed to the function.",
+            "itemtype": "method",
+            "name": "traverse",
+            "params": [
+                {
+                    "name": "dir",
+                    "description": "The directory to traverse.",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback function to call for each file node traversing through.",
+                    "type": "Function",
+                    "optional": true
+                },
+                {
+                    "name": "callback_arg",
+                    "description": "The parameters to be passed to the 'callback'.",
+                    "optional": true,
+                    "multiple": true
+                }
+            ],
+            "class": "zfse",
+            "module": "zfse"
+        },
+        {
+            "file": "zfse.js",
+            "line": 40,
+            "description": "Recursively removes a directory. This function works in a similar way as linux \nshell command 'rm -rf'. \nIf 'dir' is single file, this function works in the same way as fs.unlinkSync()",
+            "itemtype": "method",
+            "name": "rrmdirSync",
+            "params": [
+                {
+                    "name": "dir",
+                    "description": "The directory to remove.",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "Options when running this function.",
+                    "type": "Object",
+                    "optional": true,
+                    "props": [
+                        {
+                            "name": "isDryRun",
+                            "description": "Dry-runs the function w/o actually renaming.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "isVerbose",
+                            "description": "Verbose log messages",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        }
+                    ]
+                }
+            ],
+            "class": "zfse",
+            "module": "zfse"
+        },
+        {
+            "file": "zfse.js",
+            "line": 78,
+            "description": "Recursively renames files matching the 'oldNamePattern' regex to 'newName'.\nThis function works a a similar way as linux shell command 'find -name oldNamePattern -exec mv \\{\\} newName \\;'.",
+            "itemtype": "method",
+            "name": "rrenameSync",
+            "params": [
+                {
+                    "name": "dir",
+                    "description": "The directory from which search starts.",
+                    "type": "String"
+                },
+                {
+                    "name": "oldNamePattern",
+                    "description": "Search pattern in regular expression",
+                    "type": "RegExp"
+                },
+                {
+                    "name": "newName",
+                    "description": "The new name",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "Options when running this function.",
+                    "type": "Object",
+                    "optional": true,
+                    "props": [
+                        {
+                            "name": "isDryRun",
+                            "description": "Dry-runs the function w/o actually renaming.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "isVerbose",
+                            "description": "Verbose log messages",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        }
+                    ]
+                }
+            ],
+            "class": "zfse",
+            "module": "zfse"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: parm with param",
+            "line": " zfse.js:18"
+        }
+    ]
+}
