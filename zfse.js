@@ -1,15 +1,30 @@
+/**
+ * Zhou's File System Extension extends the functionality of the 'fs' module of node.js.
+ *
+ * @module zfse
+ */
 var fs = require('fs');
 var path = require('path');
 
+/**
+ * The module class 
+ * @class zfse
+ * @static
+ */
 module.exports.traverse =   traverse;   // Traverses a directory
 module.exports.rrmdir   =   rrmdirSync; // Recursively removes a directory
 module.exports.find     =   find;       // Find files according to a specified file name pattern
 
-// traverse(dir, callback [,callback_arg1 [,callback_arg2...]])
-//
-// Traverses through the specified 'dir' directory tree, and apply the 
-// specificed 'callback' function to each file node with optional 
-// 'callback_arg' arguments passed to the function.
+/**
+ * Traverses through the specified 'dir' directory tree, and apply the 
+ * specificed 'callback' function to each file node with optional 
+ * 'callback_arg' arguments passed to the function.
+ *
+ * @method traverse
+ * @param dir {String} The directory to traverse.
+ * @param [callback] {Function} The callback function to call for each file node traversing through.
+ * @parm [...callback_arg] The parameters to be passed to the 'callback'.
+ */
 function traverse(fpath, callback) {
     var cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
     var stat = fs.lstatSync(fpath);
@@ -22,13 +37,17 @@ function traverse(fpath, callback) {
     callback.apply(undefined, [fpath].concat(cbArgs));
 }
 
-// rrmdirSync(dir[, options])
-//
-// Recursively removes a directory
-// When 'dir' is single file, this function works in the same way as fs.unlinkSync()
-// 'options': 
-//      isDryRun (false)    - dry-runs the function w/o actually renaming (default: false)
-//      isVerbose (false)   - verbose log messages
+/**
+ * Recursively removes a directory. This function works in a similar way as linux 
+ * shell command 'rm -rf'. 
+ * If 'dir' is single file, this function works in the same way as fs.unlinkSync()
+ *
+ * @method rrmdirSync
+ * @param dir {String} The directory to remove.
+ * @param [options] {Object} Options when running this function.
+ * @param [options.isDryRun=false] {Boolean} Dry-runs the function w/o actually renaming.
+ * @param [options.isVerbose=false] {Boolean} Verbose log messages
+ */
 function rrmdirSync(dir, options) {
     var isDryRun = false;
     var isVerbose = false;
@@ -56,12 +75,18 @@ function rrmdirSync(dir, options) {
     });
 }
 
-// rrenameSync(dir, oldNamePattern, newName[, options]))
-//
-// Recursively rename files matching the 'oldNamePattern' regex to 'newName'
-// 'options': 
-//      isDryRun (false)    - dry-runs the function w/o actually renaming (default: false)
-//      isVerbose (false)   - verbose log messages
+/**
+ * Recursively renames files matching the 'oldNamePattern' regex to 'newName'.
+ * This function works a a similar way as linux shell command 'find -name oldNamePattern -exec mv \{\} newName \;'.
+ * 
+ * @method rrenameSync
+ * @param dir {String} The directory from which search starts.
+ * @param oldNamePattern {RegExp} Search pattern in regular expression
+ * @param newName {String} The new name
+ * @param [options] {Object} Options when running this function.
+ * @param [options.isDryRun=false] {Boolean} Dry-runs the function w/o actually renaming.
+ * @param [options.isVerbose=false] {Boolean} Verbose log messages
+ */
 function rrenameSync(dir, oldNamePattern, newName, options) {
     var isDryRun = false;
     var isVerbose = false;
