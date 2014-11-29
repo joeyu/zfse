@@ -1,3 +1,5 @@
+/* Copyright 2014 Zhou Yu
+ */
 /**
  * Zhou's File System Extension to the 'fs' module of node.js.
  *
