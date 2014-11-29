@@ -1,16 +1,13 @@
 /**
- * Zhou's File System Extension extends the functionality of the 'fs' module of node.js.
+ * Zhou's File System Extension to the 'fs' module of node.js.
  *
  * @module zfse
+ * @class zfse
+ * @static
  */
 var fs = require('fs');
 var path = require('path');
 
-/**
- * The module class 
- * @class zfse
- * @static
- */
 module.exports.traverse =   traverse;   // Traverses a directory
 module.exports.rrmdir   =   rrmdirSync; // Recursively removes a directory
 module.exports.find     =   find;       // Find files according to a specified file name pattern
@@ -23,7 +20,7 @@ module.exports.find     =   find;       // Find files according to a specified f
  * @method traverse
  * @param dir {String} The directory to traverse.
  * @param [callback] {Function} The callback function to call for each file node traversing through.
- * @parm [...callback_arg] The parameters to be passed to the 'callback'.
+ * @param [...callback_arg] The parameters to be passed to the 'callback'.
  */
 function traverse(fpath, callback) {
     var cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
@@ -46,7 +43,7 @@ function traverse(fpath, callback) {
  * @param dir {String} The directory to remove.
  * @param [options] {Object} Options when running this function.
  * @param [options.isDryRun=false] {Boolean} Dry-runs the function w/o actually renaming.
- * @param [options.isVerbose=false] {Boolean} Verbose log messages
+ * @param [options.isVerbose=false] {Boolean} Verbose log messages.
  */
 function rrmdirSync(dir, options) {
     var isDryRun = false;
@@ -81,8 +78,8 @@ function rrmdirSync(dir, options) {
  * 
  * @method rrenameSync
  * @param dir {String} The directory from which search starts.
- * @param oldNamePattern {RegExp} Search pattern in regular expression
- * @param newName {String} The new name
+ * @param oldNamePattern {RegExp} Search pattern in regular expression.
+ * @param newName {String} The new name.
  * @param [options] {Object} Options when running this function.
  * @param [options.isDryRun=false] {Boolean} Dry-runs the function w/o actually renaming.
  * @param [options.isVerbose=false] {Boolean} Verbose log messages
@@ -112,16 +109,23 @@ function rrenameSync(dir, oldNamePattern, newName, options) {
     });
 }
 
-// find(dir [,namePatten [,callback[, callback_arg1[, callback_arg2...]]]])
-//
-// Searches the specified directory 'dir' for an optionally specified 'namePattern' 
-// file name pattern, calling the 'callback' function with 'callback_arg' arguments
-// if specified.
+/**
+ * Searches the specified directory 'dir' for an optionally specified 'namePattern' 
+ * file name pattern, calling the 'callback' function with 'callback_arg' arguments
+ * if specified.
+ *
+ * @method find
+ * @param dir {String} The directory from which search starts.
+ * @param namePatten {RegExp} Search pattern in regular expression.
+ * @param [callback] {Function} The callback funtion to run for each file node that is found
+ * @param [...callback_arg] The parameters to be passed to the 'callback'.
+ */
 function find(dir, namePattern, callback) {
     // arguments
     var cbArgs = Array.prototype.slice.call(arguments, 3); // gets callback arguments
     if (typeof namePattern === 'function') {
         callback = namePattern; // no namePattern, but callback only
+        namePattern = null;
         cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
     }
     traverse (dir, function (fpath) {
