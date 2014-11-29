@@ -11,10 +11,11 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports = {
-    'traverse':     traverse,     // Traverses a directory
-    'rRmDirSync':   rRmDirSync,   // Recursively removes a directory
-    'rRenameSync':  rRenameSync,  // Recursively Rename all files under a directory
-    'find':         find,         // Find files according to a specified file name pattern
+    'traverse':     traverse,       // Traverses a directory
+    'rRmDirSync':   rRmDirSync,     // Recursively removes a directory
+    'rRenameSync':  rRenameSync,    // Recursively Rename all files under a directory
+    'find':         find,           // Finds files according to a specified file name pattern
+    'copyFileSync': copyFileSync,   // Synchronously copy a file
 };
 
 /**
@@ -149,6 +150,43 @@ function find(dir, namePattern, callback) {
         }
     });
 }
+
+/**
+ * Synchronously copy a file
+ *
+ * @method copyFileSync
+ * @param src {String} The source file.
+ * @param dst {String} The destination file.
+ * @param [options] {Object} Options
+ */
+function copyFileSync(src, dst, options) {
+    if (!fs.existsSync(src)) {
+        throw "File doesn't exists!";
+    }
+
+    var stat = fs.lstatSync(src);
+    if (!stat.isFile()) {
+        throw "Not file!";
+    }
+    var blksize = stat.blksize;
+    var fdSrc = fs.openSync(src, 'r');
+    var fdDst = fs.openSync(dst, 'w');
+    var buf = new Buffer(blksize);
+    var n;
+    while (n = fs.readSync(fdSrc, buf, 0, blksize, null)) {
+        if (n !== fs.writeSync(fdDst, buf, 0, n, null)) {
+            throw "Write file failed!";
+        }
+    }
+    fs.closeSync(fdSrc);
+    fs.closeSync(fdDst);
+}
+        
+    
+
+
+
+    
 
 
 

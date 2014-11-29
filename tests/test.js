@@ -16,6 +16,11 @@ mkdir(testdir);
 
 var d = Object.keys(testdir)[0];
 
+
+console.log("Testing copyFileSync()");
+zfse.copyFileSync(d + '/' + 'f11', d + '/' + 'd12/f123_f11');
+zfse.find(d);
+
 console.log("Testing rRenameSync()");
 zfse.rRenameSync(d, '2', '2m', {'verbose': true});
 
