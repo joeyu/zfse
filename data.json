@@ -48,7 +48,7 @@
     "classitems": [
         {
             "file": "zfse.js",
-            "line": 20,
+            "line": 23,
             "description": "Traverses through the specified 'dir' directory tree, and apply the \nspecificed 'callback' function to each file node with optional \n'callback_arg' arguments passed to the function.",
             "itemtype": "method",
             "name": "traverse",
@@ -57,6 +57,28 @@
                     "name": "dir",
                     "description": "The directory to traverse.",
                     "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "The options",
+                    "type": "Object",
+                    "optional": true,
+                    "props": [
+                        {
+                            "name": "depthfirst",
+                            "description": "Depth-first traversal.",
+                            "type": "Object",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
+                            "name": "callbackdelay",
+                            "description": "callback delayed.",
+                            "type": "Object",
+                            "optional": true,
+                            "optdefault": "true"
+                        }
+                    ]
                 },
                 {
                     "name": "callback",
@@ -76,7 +98,7 @@
         },
         {
             "file": "zfse.js",
-            "line": 42,
+            "line": 106,
             "description": "Recursively removes a directory. This function works in a similar way as linux \nshell command 'rm -rf'. \nIf 'dir' is single file, this function works in the same way as fs.unlinkSync()",
             "itemtype": "method",
             "name": "rRmDirSync",
@@ -98,13 +120,6 @@
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
-                        },
-                        {
-                            "name": "verbose",
-                            "description": "Verbose log messages.",
-                            "type": "Boolean",
-                            "optional": true,
-                            "optdefault": "false"
                         }
                     ]
                 }
@@ -114,7 +129,7 @@
         },
         {
             "file": "zfse.js",
-            "line": 80,
+            "line": 141,
             "description": "Recursively renames files matching the 'oldNamePattern' regex to 'newName'.\nThis function works a a similar way as linux shell command 'find -name oldNamePattern -exec mv \\{\\} newName \\;'.",
             "itemtype": "method",
             "name": "rRenameSync",
@@ -146,13 +161,6 @@
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
-                        },
-                        {
-                            "name": "verbose",
-                            "description": "Verbose log messages",
-                            "type": "Boolean",
-                            "optional": true,
-                            "optdefault": "false"
                         }
                     ]
                 }
@@ -162,7 +170,7 @@
         },
         {
             "file": "zfse.js",
-            "line": 117,
+            "line": 175,
             "description": "Searches the specified directory 'dir' for an optionally specified 'namePattern' \nfile name pattern, calling the 'callback' function with 'callback_arg' arguments\nif specified.",
             "itemtype": "method",
             "name": "find",
@@ -188,6 +196,60 @@
                     "description": "The parameters to be passed to the 'callback'.",
                     "optional": true,
                     "multiple": true
+                }
+            ],
+            "class": "zfse",
+            "module": "zfse"
+        },
+        {
+            "file": "zfse.js",
+            "line": 217,
+            "description": "Synchronously copy a file.\nIf the destination is a directory, the source file copy will be copied to it with the\nsame file name.",
+            "itemtype": "method",
+            "name": "copyFileSync",
+            "params": [
+                {
+                    "name": "src",
+                    "description": "The source file.",
+                    "type": "String"
+                },
+                {
+                    "name": "dst",
+                    "description": "The destination file, or directory.",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "Options.",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "class": "zfse",
+            "module": "zfse"
+        },
+        {
+            "file": "zfse.js",
+            "line": 261,
+            "description": "Synchromously copy a directory.",
+            "itemtype": "method",
+            "name": "copyDirSync",
+            "params": [
+                {
+                    "name": "src",
+                    "description": "The source directory.",
+                    "type": "String"
+                },
+                {
+                    "name": "dst",
+                    "description": "The destination directory.",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "Options.",
+                    "type": "Object",
+                    "optional": true
                 }
             ],
             "class": "zfse",

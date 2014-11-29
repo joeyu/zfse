@@ -111,6 +111,14 @@
                         
                                             <ul class="index-list methods">
                                                     <li class="index-item method">
+                                                        <a href="#method_copyDirSync">copyDirSync</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_copyFileSync">copyFileSync</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
                                                         <a href="#method_find">find</a>
                         
                                                     </li>
@@ -136,6 +144,172 @@
                                     <div id="methods" class="api-class-tabpanel">
                                         <h2 class="off-left">Methods</h2>
                         
+                                            <div id="method_copyDirSync" class="method item">
+                                                <h3 class="name"><code>copyDirSync</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>src</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>dst</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code class="optional">[options]</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/zfse.js.html#l261"><code>zfse.js:261</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Synchromously copy a directory.</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">src</code>
+                                                                    <span class="type">String</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The source directory.</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">dst</code>
+                                                                    <span class="type">String</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The destination directory.</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name optional">[options]</code>
+                                                                    <span class="type">Object</span>
+                                                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Options.</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_copyFileSync" class="method item">
+                                                <h3 class="name"><code>copyFileSync</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>src</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>dst</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code class="optional">[options]</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/zfse.js.html#l217"><code>zfse.js:217</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Synchronously copy a file.
+                                            If the destination is a directory, the source file copy will be copied to it with the
+                                            same file name.</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">src</code>
+                                                                    <span class="type">String</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The source file.</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">dst</code>
+                                                                    <span class="type">String</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The destination file, or directory.</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name optional">[options]</code>
+                                                                    <span class="type">Object</span>
+                                                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Options.</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
                                             <div id="method_find" class="method item">
                                                 <h3 class="name"><code>find</code></h3>
                                             
@@ -166,7 +340,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/zfse.js.html#l117"><code>zfse.js:117</code></a>
+                                                    <a href="../files/zfse.js.html#l175"><code>zfse.js:175</code></a>
                                                     </p>
                                             
                                             
@@ -266,7 +440,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/zfse.js.html#l80"><code>zfse.js:80</code></a>
+                                                    <a href="../files/zfse.js.html#l141"><code>zfse.js:141</code></a>
                                                     </p>
                                             
                                             
@@ -339,17 +513,6 @@
                                                                             </div>
                                             
                                                                         </li>
-                                                                        <li class="param">
-                                                                                <code class="param-name optional">[verbose=false]</code>
-                                                                                <span class="type">Boolean</span>
-                                                                                <span class="flag optional" title="This parameter is optional.">optional</span>
-                                            
-                                                                            <div class="param-description">
-                                                                                <p>Verbose log messages</p>
-                                            
-                                                                            </div>
-                                            
-                                                                        </li>
                                                                     </ul>
                                                             </li>
                                                         </ul>
@@ -381,7 +544,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/zfse.js.html#l42"><code>zfse.js:42</code></a>
+                                                    <a href="../files/zfse.js.html#l106"><code>zfse.js:106</code></a>
                                                     </p>
                                             
                                             
@@ -433,17 +596,6 @@
                                                                             </div>
                                             
                                                                         </li>
-                                                                        <li class="param">
-                                                                                <code class="param-name optional">[verbose=false]</code>
-                                                                                <span class="type">Boolean</span>
-                                                                                <span class="flag optional" title="This parameter is optional.">optional</span>
-                                            
-                                                                            <div class="param-description">
-                                                                                <p>Verbose log messages.</p>
-                                            
-                                                                            </div>
-                                            
-                                                                        </li>
                                                                     </ul>
                                                             </li>
                                                         </ul>
@@ -458,6 +610,9 @@
                                                         <span class="paren">(</span><ul class="args-list inline commas">
                                                             <li class="arg">
                                                                     <code>dir</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code class="optional">[options]</code>
                                                             </li>
                                                             <li class="arg">
                                                                     <code class="optional">[callback]</code>
@@ -478,7 +633,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/zfse.js.html#l20"><code>zfse.js:20</code></a>
+                                                    <a href="../files/zfse.js.html#l23"><code>zfse.js:23</code></a>
                                                     </p>
                                             
                                             
@@ -506,6 +661,42 @@
                                             
                                                                 </div>
                                             
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name optional">[options]</code>
+                                                                    <span class="type">Object</span>
+                                                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The options</p>
+                                            
+                                                                </div>
+                                            
+                                                                    <ul class="params-list">
+                                                                        <li class="param">
+                                                                                <code class="param-name optional">[depthfirst=true]</code>
+                                                                                <span class="type">Object</span>
+                                                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+                                                                            <div class="param-description">
+                                                                                <p>Depth-first traversal.</p>
+                                            
+                                                                            </div>
+                                            
+                                                                        </li>
+                                                                        <li class="param">
+                                                                                <code class="param-name optional">[callbackdelay=true]</code>
+                                                                                <span class="type">Object</span>
+                                                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+                                                                            <div class="param-description">
+                                                                                <p>callback delayed.</p>
+                                            
+                                                                            </div>
+                                            
+                                                                        </li>
+                                                                    </ul>
                                                             </li>
                                                             <li class="param">
                                                                     <code class="param-name optional">[callback]</code>
