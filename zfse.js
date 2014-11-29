@@ -8,9 +8,12 @@
 var fs = require('fs');
 var path = require('path');
 
-module.exports.traverse =   traverse;   // Traverses a directory
-module.exports.rrmdir   =   rrmdirSync; // Recursively removes a directory
-module.exports.find     =   find;       // Find files according to a specified file name pattern
+module.exports = {
+    'traverse':     traverse,     // Traverses a directory
+    'rRmDirSync':   rRmDirSync,   // Recursively removes a directory
+    'rRenameSync':  rRenameSync,  // Recursively Rename all files under a directory
+    'find':         find,         // Find files according to a specified file name pattern
+};
 
 /**
  * Traverses through the specified 'dir' directory tree, and apply the 
@@ -39,13 +42,13 @@ function traverse(fpath, callback) {
  * shell command 'rm -rf'. 
  * If 'dir' is single file, this function works in the same way as fs.unlinkSync()
  *
- * @method rrmdirSync
+ * @method rRmDirSync
  * @param dir {String} The directory to remove.
  * @param [options] {Object} Options when running this function.
  * @param [options.isDryRun=false] {Boolean} Dry-runs the function w/o actually renaming.
  * @param [options.isVerbose=false] {Boolean} Verbose log messages.
  */
-function rrmdirSync(dir, options) {
+function rRmDirSync(dir, options) {
     var isDryRun = false;
     var isVerbose = false;
 
@@ -76,7 +79,7 @@ function rrmdirSync(dir, options) {
  * Recursively renames files matching the 'oldNamePattern' regex to 'newName'.
  * This function works a a similar way as linux shell command 'find -name oldNamePattern -exec mv \{\} newName \;'.
  * 
- * @method rrenameSync
+ * @method rRenameSync
  * @param dir {String} The directory from which search starts.
  * @param oldNamePattern {RegExp} Search pattern in regular expression.
  * @param newName {String} The new name.
@@ -84,7 +87,7 @@ function rrmdirSync(dir, options) {
  * @param [options.isDryRun=false] {Boolean} Dry-runs the function w/o actually renaming.
  * @param [options.isVerbose=false] {Boolean} Verbose log messages
  */
-function rrenameSync(dir, oldNamePattern, newName, options) {
+function rRenameSync(dir, oldNamePattern, newName, options) {
     var isDryRun = false;
     var isVerbose = false;
 
