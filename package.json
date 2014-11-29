@@ -1,10 +1,10 @@
 {
   "name": "zfse",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Zhou's File System Extension to the 'fs' module of node.js.",
   "main": "zfse.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tests/test.js"
   },
   "repository": {
     "type": "git",
