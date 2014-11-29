@@ -3,7 +3,7 @@
 Zhou's File System Extension to the 'fs' module of node.js
 
 ##Installation
-    npm install zfse
+    $ npm install zfse
 
 ##Usage
 
