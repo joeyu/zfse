@@ -129,30 +129,30 @@
                          * @method rRmDirSync
                          * @param dir {String} The directory to remove.
                          * @param [options] {Object} Options when running this function.
-                         * @param [options.isDryRun=false] {Boolean} Dry-runs the function w/o actually renaming.
-                         * @param [options.isVerbose=false] {Boolean} Verbose log messages.
+                         * @param [options.dryrun=false] {Boolean} Dry-runs the function w/o actually renaming.
+                         * @param [options.verbose=false] {Boolean} Verbose log messages.
                          */
                         function rRmDirSync(dir, options) {
-                            var isDryRun = false;
-                            var isVerbose = false;
+                            var dryrun = false;
+                            var verbose = false;
                         
                             for (var key in options) {
-                                if (key === &#x27;isDryRun&#x27;) isDryRun = options.isDryRun;
-                                if (key === &#x27;isVerbose&#x27;) isVerbose = options.isVerbose;
+                                if (key === &#x27;dryrun&#x27;) dryrun = options.dryrun;
+                                if (key === &#x27;verbose&#x27;) verbose = options.verbose;
                             }
                         
                             traverse(dir, function (fpath) {
-                                if (isVerbose) {
+                                if (verbose) {
                                     console.log(fpath);
                                 }
                                 var stat = fs.lstatSync(fpath);
                                 if (stat.isDirectory()) {
-                                    if (!isDryRun) {
+                                    if (!dryrun) {
                                         fs.rmdirSync(fpath);
                                     }
                                 }
                                 else {
-                                    if (!isDryRun) {
+                                    if (!dryrun) {
                                         fs.unlinkSync(fpath);
                                     }
                                 }
@@ -168,16 +168,16 @@
                          * @param oldNamePattern {RegExp} Search pattern in regular expression.
                          * @param newName {String} The new name.
                          * @param [options] {Object} Options when running this function.
-                         * @param [options.isDryRun=false] {Boolean} Dry-runs the function w/o actually renaming.
-                         * @param [options.isVerbose=false] {Boolean} Verbose log messages
+                         * @param [options.dryrun=false] {Boolean} Dry-runs the function w/o actually renaming.
+                         * @param [options.verbose=false] {Boolean} Verbose log messages
                          */
                         function rRenameSync(dir, oldNamePattern, newName, options) {
-                            var isDryRun = false;
-                            var isVerbose = false;
+                            var dryrun = false;
+                            var verbose = false;
                         
                             for (var key in options) {
-                                if (key === &#x27;isDryRun&#x27;) isDryRun = options.isDryRun;
-                                if (key === &#x27;isVerbose&#x27;) isVerbose = options.isVerbose;
+                                if (key === &#x27;dryrun&#x27;) dryrun = options.dryrun;
+                                if (key === &#x27;verbose&#x27;) verbose = options.verbose;
                             }
                         
                             traverse(dir, function (fpath) {
@@ -186,10 +186,10 @@
                                 var basename2 = basename.replace(oldNamePattern, newName);
                                 if (basename2 !== basename) {
                                     var fpath2  = path.join(dirname, basename2);
-                                    if (isVerbose) {
-                                        console.log(&quot;%s --&gt; %s&quot;, fpath1, fpath2);
+                                    if (verbose) {
+                                        console.log(&quot;%s --&gt; %s&quot;, fpath, fpath2);
                                     }
-                                    if (!isDryrun) {
+                                    if (!dryrun) {
                                         fs.renameSync(fpath, fpath2);
                                     }
                                 }

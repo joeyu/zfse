@@ -93,14 +93,14 @@
                     "optional": true,
                     "props": [
                         {
-                            "name": "isDryRun",
+                            "name": "dryrun",
                             "description": "Dry-runs the function w/o actually renaming.",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
-                            "name": "isVerbose",
+                            "name": "verbose",
                             "description": "Verbose log messages.",
                             "type": "Boolean",
                             "optional": true,
@@ -141,14 +141,14 @@
                     "optional": true,
                     "props": [
                         {
-                            "name": "isDryRun",
+                            "name": "dryrun",
                             "description": "Dry-runs the function w/o actually renaming.",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
-                            "name": "isVerbose",
+                            "name": "verbose",
                             "description": "Verbose log messages",
                             "type": "Boolean",
                             "optional": true,
