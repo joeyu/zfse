@@ -11,11 +11,13 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports = {
+    'verbose':      false,          // verbose output
     'traverse':     traverse,       // Traverses a directory
     'rRmDirSync':   rRmDirSync,     // Recursively removes a directory
     'rRenameSync':  rRenameSync,    // Recursively Rename all files under a directory
     'find':         find,           // Finds files according to a specified file name pattern
     'copyFileSync': copyFileSync,   // Synchronously copy a file
+    'copyDirSync':  copyDirSync,    // Synchronously copy a directory
 };
 
 /**
@@ -25,20 +27,81 @@ module.exports = {
  *
  * @method traverse
  * @param dir {String} The directory to traverse.
+ * @param [options] {Object} The options
+ * @param [options.depthfirst=true] {Object} Depth-first traversal.
+ * @param [options.callbackdelay=true] {Object} callback delayed.
  * @param [callback] {Function} The callback function to call for each file node traversing through.
  * @param [...callback_arg] The parameters to be passed to the 'callback'.
  */
-function traverse(fpath, callback) {
-    var cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
-    var stat = fs.lstatSync(fpath);
-    if (stat.isDirectory()) {
-        var files = fs.readdirSync(fpath);
-        files.forEach(function (f) {
-            traverse.apply(undefined, [path.join(fpath, f), callback].concat(cbArgs));
-        });
+function traverse(fpath, options, callback) {
+    var cbArgs = Array.prototype.slice.call(arguments, 3); // gets callback arguments
+    if (typeof options === 'function') {
+        callback = options;
+        options = null;
+        cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
     }
-    callback.apply(undefined, [fpath].concat(cbArgs));
+    var base = fpath;
+    var depthfirst = true; 
+    var callbackdelay = true; 
+    for (var key in options) {
+        if (key === 'depthfirst') depthfirst = options.depthfirst;
+        if (key === 'callbackdelay') callbackdelay = options.callbackdelay;
+    }
+    
+    var _traverseDepth = function (fpath, base, callback) {
+        var cbArgs = Array.prototype.slice.call(arguments, 3); // gets callback arguments
+        
+        if (!callbackdelay) {
+            callback.apply(undefined, [fpath, base].concat(cbArgs));
+        }
+
+        var stat = fs.lstatSync(fpath);
+        if (stat.isDirectory()) {
+            var files = fs.readdirSync(fpath);
+            files.forEach(function (f) {
+                _traverseDepth.apply(undefined, [path.join(fpath, f), base, callback].concat(cbArgs));
+            });
+        }
+        if (callbackdelay) {
+            callback.apply(undefined, [fpath, base].concat(cbArgs));
+        }
+    };
+
+    var _traverseBreadth = function (fpaths, base, callback) {
+        var cbArgs = Array.prototype.slice.call(arguments, 3); // gets callback arguments
+        var nextLevel = [];
+
+        fpaths.forEach(function (f) {
+            if (!callbackdelay) {
+                callback.apply(undefined, [f, base].concat(cbArgs));
+            }
+
+            var stat = fs.lstatSync(f);
+            if (stat.isDirectory()) {
+                nextLevel = nextLevel.concat(fs.readdirSync(f).map(function(e) {return path.join(f, e)}));
+            }
+        });
+
+
+        if (nextLevel.length > 0) {
+            _traverseBreadth.apply(undefined, [nextLevel, base, callback].concat(cbArgs));
+        }
+
+        if (callbackdelay) {
+            fpaths.forEach(function (f) {
+                callback.apply(undefined, [f, base].concat(cbArgs));
+            });
+        }
+    };
+
+    if (depthfirst) {
+        _traverseDepth.apply(undefined, [fpath, base, callback].concat(cbArgs));
+    }
+    else {
+        _traverseBreadth.apply(undefined, [[fpath], base, callback].concat(cbArgs));
+    } 
 }
+
 
 /**
  * Recursively removes a directory. This function works in a similar way as linux 
@@ -49,19 +112,16 @@ function traverse(fpath, callback) {
  * @param dir {String} The directory to remove.
  * @param [options] {Object} Options when running this function.
  * @param [options.dryrun=false] {Boolean} Dry-runs the function w/o actually renaming.
- * @param [options.verbose=false] {Boolean} Verbose log messages.
  */
 function rRmDirSync(dir, options) {
     var dryrun = false;
-    var verbose = false;
 
     for (var key in options) {
         if (key === 'dryrun') dryrun = options.dryrun;
-        if (key === 'verbose') verbose = options.verbose;
     }
 
     traverse(dir, function (fpath) {
-        if (verbose) {
+        if (module.exports.verbose) {
             console.log(fpath);
         }
         var stat = fs.lstatSync(fpath);
@@ -88,15 +148,12 @@ function rRmDirSync(dir, options) {
  * @param newName {String} The new name.
  * @param [options] {Object} Options when running this function.
  * @param [options.dryrun=false] {Boolean} Dry-runs the function w/o actually renaming.
- * @param [options.verbose=false] {Boolean} Verbose log messages
  */
 function rRenameSync(dir, oldNamePattern, newName, options) {
     var dryrun = false;
-    var verbose = false;
 
     for (var key in options) {
         if (key === 'dryrun') dryrun = options.dryrun;
-        if (key === 'verbose') verbose = options.verbose;
     }
 
     traverse(dir, function (fpath) {
@@ -105,7 +162,7 @@ function rRenameSync(dir, oldNamePattern, newName, options) {
         var basename2 = basename.replace(oldNamePattern, newName);
         if (basename2 !== basename) {
             var fpath2  = path.join(dirname, basename2);
-            if (verbose) {
+            if (module.exports.verbose) {
                 console.log("%s --> %s", fpath, fpath2);
             }
             if (!dryrun) {
@@ -127,46 +184,61 @@ function rRenameSync(dir, oldNamePattern, newName, options) {
  * @param [...callback_arg] The parameters to be passed to the 'callback'.
  */
 function find(dir, namePattern, callback) {
-    // arguments
     var cbArgs = Array.prototype.slice.call(arguments, 3); // gets callback arguments
     if (typeof namePattern === 'function') {
         callback = namePattern; // no namePattern, but callback only
         namePattern = null;
         cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
     }
-    traverse (dir, function (fpath) {
+    traverse (dir, {'depthfirst': false, 'callbackdelay': false}, function (fpath) {
+        var found = false;
         if (namePattern) {
             var basename = path.basename(fpath);
             if (namePattern.exec(basename)) {
-                console.log(fpath);
+                found = true;
             }
         }
         else { //matched anything
-            console.log(fpath);
+            found = true;
         }
 
-        if (callback) {
-            callback.apply(undefined, [fpath].concat(cbArgs));
+        if (found) {
+            if (callback) {
+                callback.apply(undefined, [fpath, dir].concat(cbArgs));
+            }
+
+            if (module.exports.verbose) {
+               console.log(fpath);
+            }
         }
     });
 }
 
 /**
- * Synchronously copy a file
+ * Synchronously copy a file.
+ * If the destination is a directory, the source file copy will be copied to it with the
+ * same file name.
  *
  * @method copyFileSync
  * @param src {String} The source file.
- * @param dst {String} The destination file.
- * @param [options] {Object} Options
+ * @param dst {String} The destination file, or directory.
+ * @param [options] {Object} Options.
  */
 function copyFileSync(src, dst, options) {
+    var stat;
     if (!fs.existsSync(src)) {
         throw "File doesn't exists!";
     }
 
-    var stat = fs.lstatSync(src);
+    stat = fs.lstatSync(src);
     if (!stat.isFile()) {
         throw "Not file!";
+    }
+    if (fs.existsSync(dst)) {
+        stat = fs.lstatSync(dst);
+        if (stat.isDirectory()) {
+            dst += path.join(dst, path.basename(src));
+        }
     }
     var blksize = stat.blksize;
     var fdSrc = fs.openSync(src, 'r');
@@ -180,13 +252,46 @@ function copyFileSync(src, dst, options) {
     }
     fs.closeSync(fdSrc);
     fs.closeSync(fdDst);
+
+    if (module.exports.verbose) {
+        console.log("Copied '%s' to '%s'.", src, dst);
+    }
 }
-        
     
+/**
+ * Synchromously copy a directory.
+ *
+ * @method copyDirSync
+ * @param src {String} The source directory.
+ * @param dst {String} The destination directory.
+ * @param [options] {Object} Options.
+ */
+function  copyDirSync(src, dst, options) {
+    var stat;
+    if (!fs.existsSync(src)) {
+        throw "File doesn't exists!";
+    }
 
+    stat = fs.lstatSync(src);
+    if (!stat.isDirectory()) {
+        throw "Not Directory!";
+    }
+    if (fs.existsSync(dst)) {
+        stat = fs.lstatSync(dst);
+        if (!stat.isDirectory()) {
+            throw "Not Directory!";
+        }
+    }
 
-
-    
-
-
+    traverse(src, {'callbackdelay': false}, function (fpathSrc, baseSrc) {
+        var fpathDst = path.join(dst, path.relative(baseSrc, fpathSrc));
+        var stat = fs.lstatSync(fpathSrc);
+        if (stat.isFile()) {
+            copyFileSync(fpathSrc, fpathDst);
+        }
+        else if (stat.isDirectory()) {
+            fs.mkdirSync(fpathDst);
+        }
+    });
+}
 
