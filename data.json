@@ -24,8 +24,9 @@
             "namespaces": {},
             "tag": "module",
             "file": "zfse.js",
-            "line": 9,
-            "description": "Zhou's File System Extension extends the functionality of the 'fs' module of node.js."
+            "line": 3,
+            "description": "Zhou's File System Extension to the 'fs' module of node.js.",
+            "static": 1
         }
     },
     "classes": {
@@ -40,15 +41,14 @@
             "module": "zfse",
             "namespace": "",
             "file": "zfse.js",
-            "line": 9,
-            "description": "The module class",
-            "static": 1
+            "line": 3,
+            "description": "Zhou's File System Extension to the 'fs' module of node.js."
         }
     },
     "classitems": [
         {
             "file": "zfse.js",
-            "line": 18,
+            "line": 20,
             "description": "Traverses through the specified 'dir' directory tree, and apply the \nspecificed 'callback' function to each file node with optional \n'callback_arg' arguments passed to the function.",
             "itemtype": "method",
             "name": "traverse",
@@ -76,14 +76,62 @@
         },
         {
             "file": "zfse.js",
-            "line": 40,
+            "line": 42,
             "description": "Recursively removes a directory. This function works in a similar way as linux \nshell command 'rm -rf'. \nIf 'dir' is single file, this function works in the same way as fs.unlinkSync()",
             "itemtype": "method",
-            "name": "rrmdirSync",
+            "name": "rRmDirSync",
             "params": [
                 {
                     "name": "dir",
                     "description": "The directory to remove.",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "Options when running this function.",
+                    "type": "Object",
+                    "optional": true,
+                    "props": [
+                        {
+                            "name": "isDryRun",
+                            "description": "Dry-runs the function w/o actually renaming.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "isVerbose",
+                            "description": "Verbose log messages.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        }
+                    ]
+                }
+            ],
+            "class": "zfse",
+            "module": "zfse"
+        },
+        {
+            "file": "zfse.js",
+            "line": 80,
+            "description": "Recursively renames files matching the 'oldNamePattern' regex to 'newName'.\nThis function works a a similar way as linux shell command 'find -name oldNamePattern -exec mv \\{\\} newName \\;'.",
+            "itemtype": "method",
+            "name": "rRenameSync",
+            "params": [
+                {
+                    "name": "dir",
+                    "description": "The directory from which search starts.",
+                    "type": "String"
+                },
+                {
+                    "name": "oldNamePattern",
+                    "description": "Search pattern in regular expression.",
+                    "type": "RegExp"
+                },
+                {
+                    "name": "newName",
+                    "description": "The new name.",
                     "type": "String"
                 },
                 {
@@ -114,10 +162,10 @@
         },
         {
             "file": "zfse.js",
-            "line": 78,
-            "description": "Recursively renames files matching the 'oldNamePattern' regex to 'newName'.\nThis function works a a similar way as linux shell command 'find -name oldNamePattern -exec mv \\{\\} newName \\;'.",
+            "line": 117,
+            "description": "Searches the specified directory 'dir' for an optionally specified 'namePattern' \nfile name pattern, calling the 'callback' function with 'callback_arg' arguments\nif specified.",
             "itemtype": "method",
-            "name": "rrenameSync",
+            "name": "find",
             "params": [
                 {
                     "name": "dir",
@@ -125,46 +173,26 @@
                     "type": "String"
                 },
                 {
-                    "name": "oldNamePattern",
-                    "description": "Search pattern in regular expression",
+                    "name": "namePatten",
+                    "description": "Search pattern in regular expression.",
                     "type": "RegExp"
                 },
                 {
-                    "name": "newName",
-                    "description": "The new name",
-                    "type": "String"
+                    "name": "callback",
+                    "description": "The callback funtion to run for each file node that is found",
+                    "type": "Function",
+                    "optional": true
                 },
                 {
-                    "name": "options",
-                    "description": "Options when running this function.",
-                    "type": "Object",
+                    "name": "callback_arg",
+                    "description": "The parameters to be passed to the 'callback'.",
                     "optional": true,
-                    "props": [
-                        {
-                            "name": "isDryRun",
-                            "description": "Dry-runs the function w/o actually renaming.",
-                            "type": "Boolean",
-                            "optional": true,
-                            "optdefault": "false"
-                        },
-                        {
-                            "name": "isVerbose",
-                            "description": "Verbose log messages",
-                            "type": "Boolean",
-                            "optional": true,
-                            "optdefault": "false"
-                        }
-                    ]
+                    "multiple": true
                 }
             ],
             "class": "zfse",
             "module": "zfse"
         }
     ],
-    "warnings": [
-        {
-            "message": "replacing incorrect tag: parm with param",
-            "line": " zfse.js:18"
-        }
-    ]
+    "warnings": []
 }

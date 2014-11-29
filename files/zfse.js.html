@@ -80,22 +80,24 @@
                         
                         <div class="file">
                             <pre class="code prettyprint linenums">
+                        /* Copyright 2014 Zhou Yu
+                         */
                         /**
-                         * Zhou&#x27;s File System Extension extends the functionality of the &#x27;fs&#x27; module of node.js.
+                         * Zhou&#x27;s File System Extension to the &#x27;fs&#x27; module of node.js.
                          *
                          * @module zfse
+                         * @class zfse
+                         * @static
                          */
                         var fs = require(&#x27;fs&#x27;);
                         var path = require(&#x27;path&#x27;);
                         
-                        /**
-                         * The module class 
-                         * @class zfse
-                         * @static
-                         */
-                        module.exports.traverse =   traverse;   // Traverses a directory
-                        module.exports.rrmdir   =   rrmdirSync; // Recursively removes a directory
-                        module.exports.find     =   find;       // Find files according to a specified file name pattern
+                        module.exports = {
+                            &#x27;traverse&#x27;:     traverse,     // Traverses a directory
+                            &#x27;rRmDirSync&#x27;:   rRmDirSync,   // Recursively removes a directory
+                            &#x27;rRenameSync&#x27;:  rRenameSync,  // Recursively Rename all files under a directory
+                            &#x27;find&#x27;:         find,         // Find files according to a specified file name pattern
+                        };
                         
                         /**
                          * Traverses through the specified &#x27;dir&#x27; directory tree, and apply the 
@@ -105,7 +107,7 @@
                          * @method traverse
                          * @param dir {String} The directory to traverse.
                          * @param [callback] {Function} The callback function to call for each file node traversing through.
-                         * @parm [...callback_arg] The parameters to be passed to the &#x27;callback&#x27;.
+                         * @param [...callback_arg] The parameters to be passed to the &#x27;callback&#x27;.
                          */
                         function traverse(fpath, callback) {
                             var cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
@@ -124,13 +126,13 @@
                          * shell command &#x27;rm -rf&#x27;. 
                          * If &#x27;dir&#x27; is single file, this function works in the same way as fs.unlinkSync()
                          *
-                         * @method rrmdirSync
+                         * @method rRmDirSync
                          * @param dir {String} The directory to remove.
                          * @param [options] {Object} Options when running this function.
                          * @param [options.isDryRun=false] {Boolean} Dry-runs the function w/o actually renaming.
-                         * @param [options.isVerbose=false] {Boolean} Verbose log messages
+                         * @param [options.isVerbose=false] {Boolean} Verbose log messages.
                          */
-                        function rrmdirSync(dir, options) {
+                        function rRmDirSync(dir, options) {
                             var isDryRun = false;
                             var isVerbose = false;
                         
@@ -161,15 +163,15 @@
                          * Recursively renames files matching the &#x27;oldNamePattern&#x27; regex to &#x27;newName&#x27;.
                          * This function works a a similar way as linux shell command &#x27;find -name oldNamePattern -exec mv \{\} newName \;&#x27;.
                          * 
-                         * @method rrenameSync
+                         * @method rRenameSync
                          * @param dir {String} The directory from which search starts.
-                         * @param oldNamePattern {RegExp} Search pattern in regular expression
-                         * @param newName {String} The new name
+                         * @param oldNamePattern {RegExp} Search pattern in regular expression.
+                         * @param newName {String} The new name.
                          * @param [options] {Object} Options when running this function.
                          * @param [options.isDryRun=false] {Boolean} Dry-runs the function w/o actually renaming.
                          * @param [options.isVerbose=false] {Boolean} Verbose log messages
                          */
-                        function rrenameSync(dir, oldNamePattern, newName, options) {
+                        function rRenameSync(dir, oldNamePattern, newName, options) {
                             var isDryRun = false;
                             var isVerbose = false;
                         
@@ -194,16 +196,23 @@
                             });
                         }
                         
-                        // find(dir [,namePatten [,callback[, callback_arg1[, callback_arg2...]]]])
-                        //
-                        // Searches the specified directory &#x27;dir&#x27; for an optionally specified &#x27;namePattern&#x27; 
-                        // file name pattern, calling the &#x27;callback&#x27; function with &#x27;callback_arg&#x27; arguments
-                        // if specified.
+                        /**
+                         * Searches the specified directory &#x27;dir&#x27; for an optionally specified &#x27;namePattern&#x27; 
+                         * file name pattern, calling the &#x27;callback&#x27; function with &#x27;callback_arg&#x27; arguments
+                         * if specified.
+                         *
+                         * @method find
+                         * @param dir {String} The directory from which search starts.
+                         * @param namePatten {RegExp} Search pattern in regular expression.
+                         * @param [callback] {Function} The callback funtion to run for each file node that is found
+                         * @param [...callback_arg] The parameters to be passed to the &#x27;callback&#x27;.
+                         */
                         function find(dir, namePattern, callback) {
                             // arguments
                             var cbArgs = Array.prototype.slice.call(arguments, 3); // gets callback arguments
                             if (typeof namePattern === &#x27;function&#x27;) {
                                 callback = namePattern; // no namePattern, but callback only
+                                namePattern = null;
                                 cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
                             }
                             traverse (dir, function (fpath) {

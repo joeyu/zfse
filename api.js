@@ -10,7 +10,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "zfse",
             "name": "zfse",
-            "description": "Zhou's File System Extension extends the functionality of the 'fs' module of node.js."
+            "description": "Zhou's File System Extension to the 'fs' module of node.js."
         }
     ]
 } };

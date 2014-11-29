@@ -81,7 +81,7 @@
                         
                         
                                 <div class="foundat">
-                                    Defined in: <a href="../files/zfse.js.html#l9"><code>zfse.js:9</code></a>
+                                    Defined in: <a href="../files/zfse.js.html#l3"><code>zfse.js:3</code></a>
                                 </div>
                         
                                     Module: <a href="../modules/zfse.html">zfse</a>
@@ -90,7 +90,7 @@
                         
                         
                         <div class="box intro">
-                            <p>The module class</p>
+                            <p>Zhou&#39;s File System Extension to the &#39;fs&#39; module of node.js.</p>
                         
                         </div>
                         
@@ -111,11 +111,15 @@
                         
                                             <ul class="index-list methods">
                                                     <li class="index-item method">
-                                                        <a href="#method_rrenameSync">rrenameSync</a>
+                                                        <a href="#method_find">find</a>
                         
                                                     </li>
                                                     <li class="index-item method">
-                                                        <a href="#method_rrmdirSync">rrmdirSync</a>
+                                                        <a href="#method_rRenameSync">rRenameSync</a>
+                        
+                                                    </li>
+                                                    <li class="index-item method">
+                                                        <a href="#method_rRmDirSync">rRmDirSync</a>
                         
                                                     </li>
                                                     <li class="index-item method">
@@ -132,8 +136,108 @@
                                     <div id="methods" class="api-class-tabpanel">
                                         <h2 class="off-left">Methods</h2>
                         
-                                            <div id="method_rrenameSync" class="method item">
-                                                <h3 class="name"><code>rrenameSync</code></h3>
+                                            <div id="method_find" class="method item">
+                                                <h3 class="name"><code>find</code></h3>
+                                            
+                                                    <div class="args">
+                                                        <span class="paren">(</span><ul class="args-list inline commas">
+                                                            <li class="arg">
+                                                                    <code>dir</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code>namePatten</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code class="optional">[callback]</code>
+                                                            </li>
+                                                            <li class="arg">
+                                                                    <code class="optional">[callback_arg]</code>
+                                                            </li>
+                                                        </ul><span class="paren">)</span>
+                                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                <div class="meta">
+                                                            <p>
+                                                            Defined in
+                                                    <a href="../files/zfse.js.html#l117"><code>zfse.js:117</code></a>
+                                                    </p>
+                                            
+                                            
+                                            
+                                                </div>
+                                            
+                                                <div class="description">
+                                                    <p>Searches the specified directory &#39;dir&#39; for an optionally specified &#39;namePattern&#39; 
+                                            file name pattern, calling the &#39;callback&#39; function with &#39;callback_arg&#39; arguments
+                                            if specified.</p>
+                                            
+                                                </div>
+                                            
+                                                    <div class="params">
+                                                        <h4>Parameters:</h4>
+                                            
+                                                        <ul class="params-list">
+                                                            <li class="param">
+                                                                    <code class="param-name">dir</code>
+                                                                    <span class="type">String</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The directory from which search starts.</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name">namePatten</code>
+                                                                    <span class="type">RegExp</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>Search pattern in regular expression.</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name optional">[callback]</code>
+                                                                    <span class="type">Function</span>
+                                                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The callback funtion to run for each file node that is found</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                            <li class="param">
+                                                                    <code class="param-name optional">[callback_arg]</code>
+                                                                    <span class="type">Object</span>
+                                                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+                                                                    <span class="flag multiple" title="This argument may occur one or more times.">multiple</span>
+                                            
+                                                                <div class="param-description">
+                                                                    <p>The parameters to be passed to the &#39;callback&#39;.</p>
+                                            
+                                                                </div>
+                                            
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            
+                                            
+                                            </div>
+                                            <div id="method_rRenameSync" class="method item">
+                                                <h3 class="name"><code>rRenameSync</code></h3>
                                             
                                                     <div class="args">
                                                         <span class="paren">(</span><ul class="args-list inline commas">
@@ -162,7 +266,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/zfse.js.html#l78"><code>zfse.js:78</code></a>
+                                                    <a href="../files/zfse.js.html#l80"><code>zfse.js:80</code></a>
                                                     </p>
                                             
                                             
@@ -196,7 +300,7 @@
                                             
                                             
                                                                 <div class="param-description">
-                                                                    <p>Search pattern in regular expression</p>
+                                                                    <p>Search pattern in regular expression.</p>
                                             
                                                                 </div>
                                             
@@ -207,7 +311,7 @@
                                             
                                             
                                                                 <div class="param-description">
-                                                                    <p>The new name</p>
+                                                                    <p>The new name.</p>
                                             
                                                                 </div>
                                             
@@ -253,8 +357,8 @@
                                             
                                             
                                             </div>
-                                            <div id="method_rrmdirSync" class="method item">
-                                                <h3 class="name"><code>rrmdirSync</code></h3>
+                                            <div id="method_rRmDirSync" class="method item">
+                                                <h3 class="name"><code>rRmDirSync</code></h3>
                                             
                                                     <div class="args">
                                                         <span class="paren">(</span><ul class="args-list inline commas">
@@ -277,7 +381,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/zfse.js.html#l40"><code>zfse.js:40</code></a>
+                                                    <a href="../files/zfse.js.html#l42"><code>zfse.js:42</code></a>
                                                     </p>
                                             
                                             
@@ -335,7 +439,7 @@
                                                                                 <span class="flag optional" title="This parameter is optional.">optional</span>
                                             
                                                                             <div class="param-description">
-                                                                                <p>Verbose log messages</p>
+                                                                                <p>Verbose log messages.</p>
                                             
                                                                             </div>
                                             
@@ -374,7 +478,7 @@
                                                 <div class="meta">
                                                             <p>
                                                             Defined in
-                                                    <a href="../files/zfse.js.html#l18"><code>zfse.js:18</code></a>
+                                                    <a href="../files/zfse.js.html#l20"><code>zfse.js:20</code></a>
                                                     </p>
                                             
                                             
