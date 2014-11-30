@@ -30,7 +30,7 @@ module.exports = {
  * @param [options] {Object} The options
  * @param [options.depthfirst=true] {Object} Depth-first traversal.
  * @param [options.callbackdelay=true] {Object} callback delayed.
- * @param [callback] {Function} The callback function to call for each file node traversing through.
+ * @param callback {Function} The callback function to call for each file node traversing through.
  * @param [...callback_arg] The parameters to be passed to the 'callback'.
  */
 function traverse(fpath, options, callback) {

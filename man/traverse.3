@@ -1,0 +1,77 @@
+.\" Copyright 2014 Zhou Yu
+.Dd November 30, 2014
+.Os node.js [0.2]
+.Dt ZFSE 3 PRM
+.Sh NAME
+.Nm traverse
+.Nd traverses through the specified directory, and applies the specified callback function to every file node.
+.Sh SYNOPSIS
+.Fn traverse "dir" "[options]" "callback" "[callback_args]" ...
+.Sh DESCRIPTION
+.Fn traverse
+is a synchromous function, though it has
+.Fa callback
+function. After
+.Fn traverse
+returns, no
+.Fa callback
+will be called anymore. In other words, the
+.Fa callback
+is only called during
+.Fn traverse
+going through the directory tree and iterating each file node.
+.Ss PARAMETERS
+.Bl -tag
+.It Em dir 
+The directory to traverse
+.It Em [options]
+The options object.
+.Bl -tag
+.It Em [options.depthfirst=true]
+If 
+.Fa options.depthfirst
+is true, it is a depth-first traversal (see http://en.wikipedia.org/wiki/Depth-first_search). Otherwise, it is a breadth-first traversal (see http://en.wikipedia.org/wiki/Breadth-first_search).
+.It Em [options.callbackdelay=true]
+If
+.Fa options.callbackdelay
+is true, and the current file node is a directory,
+.Fn traverse
+invokes
+.Fa callback
+upon that file node before it goes deeply into it.
+.El
+.It Em callback
+The callback function to invoke for every iterated file.
+.Pp
+.Fn callback "file" "base" "[callback_args]" ...
+.Bl -tag
+.It Em file 
+the iterated file node. 
+.It Em base
+the base directory, which equals to the
+.Fa dir
+argument to
+.Fn traverse
+\&.
+.It Em [callback_args]
+equals to the
+.Fa [callback_args]
+arguments to
+.Fn traverse
+\&.
+.El
+.It Em [callback_args]
+The optional arguments, which will be passed to
+.Fa [callback]
+\&.
+.El
+.Sh EXAMPLES
+The following code snippet travserses through your current directory and prints every file node.
+.Bd -literal -offset indent
+var zfse = require('zfse');
+zfse.traverse('./', {'depthfirst': true, 'callbackdelay': false}, function(f) {
+    console.log(f);
+});
+.Ed
+.Sh AUTHORS
+.An "Zhou Yu" Aq nap.zhou.yu@gmail.com

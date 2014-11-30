@@ -9,30 +9,29 @@
 $ npm install zfse
 .Sh DESCRIPTION
 zfse is a node.js module, which extends the 'fs' module with several synchronous functions operating on the file system.
-.Sh PROPERTIES
+.Ss PROPERTIES
 .Bl -tag
 .It Sy verbose
-Verbose display for debugging purpose
+Verbose display for debugging purpose.
 .El
-.Sh METHODS
+.Ss METHODS
 .Bl -tag
 .It Sy traverse
-Traverses a directory
+Traverses a directory.
 .It Sy rRmDirSync
-Recursively removes a directory
+Recursively removes a directory.
 .It Sy rRenameSync
-Recursively Renames all files under a directory
+Recursively Renames all files under a directory.
 .It Sy find
-Finds files according to a specified file name pattern
+Finds files according to a specified file name pattern.
 .It Sy copyFileSync
-Synchronously copies a file
+Synchronously copies a file.
 .It Sy copyDirSync
-Synchronously copies a directory
+Synchronously copies a directory.
 .El
 .Sh EXAMPLES
+The following code snippet travserses throught your current directory and prints every file node.
 .Bd -literal
-//The following code snippet travserses throught your current directory 
-//and prints every file node.
 var zfse = require('zfse');
 zfse.traverse('./', function(f) {
     console.log(f);
