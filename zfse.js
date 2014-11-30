@@ -120,7 +120,7 @@ function rRmDirSync(dir, options) {
         if (key === 'dryrun') dryrun = options.dryrun;
     }
 
-    traverse(dir, function (fpath) {
+    traverse(dir, {'depthfirst': true, 'callbackdelay': true}, function (fpath) {
         if (module.exports.verbose) {
             console.log(fpath);
         }
@@ -156,7 +156,7 @@ function rRenameSync(dir, oldNamePattern, newName, options) {
         if (key === 'dryrun') dryrun = options.dryrun;
     }
 
-    traverse(dir, function (fpath) {
+    traverse(dir, {'depthfirst': true, 'callbackdelay': true}, function (fpath) {
         var basename = path.basename(fpath);
         var dirname = path.dirname(fpath);
         var basename2 = basename.replace(oldNamePattern, newName);
@@ -190,7 +190,7 @@ function find(dir, namePattern, callback) {
         namePattern = null;
         cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
     }
-    traverse (dir, {'depthfirst': false, 'callbackdelay': false}, function (fpath) {
+    traverse (dir, {'depthfirst': true, 'callbackdelay': false}, function (fpath) {
         var found = false;
         if (namePattern) {
             var basename = path.basename(fpath);
@@ -215,7 +215,7 @@ function find(dir, namePattern, callback) {
 }
 
 /**
- * Synchronously copy a file.
+ * Synchronously copies a file.
  * If the destination is a directory, the source file copy will be copied to it with the
  * same file name.
  *
@@ -259,7 +259,7 @@ function copyFileSync(src, dst, options) {
 }
     
 /**
- * Synchromously copy a directory.
+ * Synchromously copies a directory.
  *
  * @method copyDirSync
  * @param src {String} The source directory.
