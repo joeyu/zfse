@@ -268,6 +268,14 @@ function copyFileSync(src, dst, options) {
  */
 function  copyDirSync(src, dst, options) {
     var stat;
+
+    src = path.normalize(src);
+    dst = path.normalize(dst);
+
+    if (src === dst) {
+        throw "Can't copy self!";
+    }
+
     if (!fs.existsSync(src)) {
         throw "File doesn't exists!";
     }
@@ -281,6 +289,10 @@ function  copyDirSync(src, dst, options) {
         if (!stat.isDirectory()) {
             throw "Not Directory!";
         }
+
+        var basename = path.basename(src);
+        dst = path.join(dst, basename);
+
     }
 
     traverse(src, {'callbackdelay': false}, function (fpathSrc, baseSrc) {
