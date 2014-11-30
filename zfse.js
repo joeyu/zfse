@@ -14,10 +14,10 @@ module.exports = {
     'verbose':      false,          // verbose output
     'traverse':     traverse,       // Traverses a directory
     'rRmDirSync':   rRmDirSync,     // Recursively removes a directory
-    'rRenameSync':  rRenameSync,    // Recursively Rename all files under a directory
+    'rRenameSync':  rRenameSync,    // Recursively Renames all files under a directory
     'find':         find,           // Finds files according to a specified file name pattern
-    'copyFileSync': copyFileSync,   // Synchronously copy a file
-    'copyDirSync':  copyDirSync,    // Synchronously copy a directory
+    'copyFileSync': copyFileSync,   // Synchronously copies a file
+    'copyDirSync':  copyDirSync,    // Synchronously copies a directory
 };
 
 /**

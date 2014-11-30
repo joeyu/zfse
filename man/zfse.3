@@ -1,0 +1,42 @@
+.\" Copyright 2014 Zhou Yu
+.Dd November 30, 2014
+.Os node.js [0.2]
+.Dt ZFSE 3 PRM
+.Sh NAME
+.Nm zfse
+.Nd Zhou's File System Extension to the 'fs' module of node.js.
+.Sh INSTALLATION
+$ npm install zfse
+.Sh DESCRIPTION
+zfse is a node.js module, which extends the 'fs' module with several synchronous functions operating on the file system.
+.Sh PROPERTIES
+.Bl -tag
+.It Sy verbose
+Verbose display for debugging purpose
+.El
+.Sh METHODS
+.Bl -tag
+.It Sy traverse
+Traverses a directory
+.It Sy rRmDirSync
+Recursively removes a directory
+.It Sy rRenameSync
+Recursively Renames all files under a directory
+.It Sy find
+Finds files according to a specified file name pattern
+.It Sy copyFileSync
+Synchronously copies a file
+.It Sy copyDirSync
+Synchronously copies a directory
+.El
+.Sh EXAMPLES
+.Bd -literal
+//The following code snippet travserses throught your current directory 
+//and prints every file node.
+var zfse = require('zfse');
+zfse.traverse('./', function(f) {
+    console.log(f);
+});
+.Ed
+.Sh AUTHORS
+.An "Zhou Yu" Aq nap.zhou.yu@gmail.com

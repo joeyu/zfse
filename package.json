@@ -1,6 +1,6 @@
 {
   "name": "zfse",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Zhou's File System Extension to the 'fs' module of node.js.",
   "main": "zfse.js",
   "scripts": {
@@ -10,6 +10,9 @@
     "type": "git",
     "url": "https://github.com/joeyu/zfse.git"
   },
+  "man": [
+    "./man/zfse.3"
+  ],
   "keywords": [
     "fs",
     "file system"
