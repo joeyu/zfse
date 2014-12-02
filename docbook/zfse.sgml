@@ -1,110 +1,114 @@
 <?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE article SYSTEM "/home/joeyu01/workspace/MyZFSEDocbook01/docbook-5.0/dtd/docbook.dtd">
 <article xmlns='http://docbook.org/ns/docbook'>
+<title>ZFSE Promgrammer's Manual</title>
+<refentry xml:id="zfse">
+<info>
+<productname class="copyright">
+zfse
+<author>
+<personname>
+<firstname>Zhou</firstname>
+<surname>Yu</surname>
+</personname>
+<email>nap.zhou.yu@gmail.com</email>
+</author>
+</productname>
+</info>
+<refmeta>
+<refentrytitle>
+zfse
+</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="manual"></refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>zfse</refname>
+<refpurpose>
+Zhou's File System Extension to the 'fs' module of
+node.js.
+</refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+<synopsis>var zfse = require('zfse');</synopsis>
+</refsynopsisdiv>
+<refsect1>
+<title>Installation</title>
+<para>$ npm install zfse</para>
+</refsect1>
+<refsect1>
+<title>Description</title>
+<para><package>zfse</package> is a node.js module, which extends the 'fs' module with
+several synchronous functions operating on the file system.
+</para>
+<refsect2>
+<title>Properties</title>
+<variablelist>
+<varlistentry>
+<term><property>verbose</property></term>
+<listitem>
+Verbose display for the debugging purpose.
+</listitem>
+</varlistentry>
 
-	
-	<refentry xml:id="zfse">
-		<info>
-		<productname class="copyright">zfse<author>
-					<personname>
-						<firstname>Zhou</firstname>
-						<surname>Yu</surname>
-					</personname>
-					<email>nap.zhou.yu@gmail.com</email>
-</author></productname>
-	</info><refmeta>
-			<refentrytitle>
-				zfse
-				
-			</refentrytitle>
-			<manvolnum>3</manvolnum>
-			<refmiscinfo class="manual"></refmiscinfo>
-		</refmeta>
-		<refnamediv>
-			<refname>zfse</refname>
-			<refpurpose>
-				Zhou's File System Extension to the 'fs' module of
-				node.js.
-			</refpurpose>
-		</refnamediv>
-		<refsynopsisdiv>
-			<synopsis>var zfse = require('zfse');</synopsis>
-		</refsynopsisdiv>
-		<refsect1>
-			<title>Installation</title>
-			<para>$ npm install zfse</para>
-		</refsect1>
-		<refsect1>
-			<title>Description</title>
-			<para>zfse is a node.js module, which extends the 'fs' module with
-				several synchronous functions operating on the file system.
-			</para>
-			<refsect2>
-				<title>Properties</title>
-                <variablelist>
-                    <varlistentry>
-                        <term> verbose</term>
-                        <listitem>
-                            Verbose display for the debugging purpose.
-                        </listitem>
-                    </varlistentry>
-                
-                </variablelist>
-			</refsect2>
-			<refsect2>
-				<title>Methods</title>
-				<variablelist>
-					<varlistentry>
-						<term> <methodname>traverse</methodname></term>
-						<listitem>
-							Traverses a directory.
-						</listitem>
-					</varlistentry>
-					<varlistentry>
-						<term> rRmDirSync</term>
-						<listitem>
-							Recursively removes a directory.
+</variablelist>
+</refsect2>
+<refsect2>
+<title>Methods</title>
+<variablelist>
+<varlistentry>
+<term>
+<methodname>traverse</methodname>
+</term>
+<listitem>
+Traverses a directory.
+</listitem>
+</varlistentry>
+<varlistentry>
+<term> <methodname>rRmDirSync</methodname></term>
+<listitem>
+Recursively removes a directory.
 
-						</listitem>
-					</varlistentry>
-					<varlistentry>
-						<term> rRenameSync</term>
-						<listitem>
-							Recursively Renames all files under a directory.
-						</listitem>
-					</varlistentry>
-					<varlistentry>
-						<term>find</term>
-						<listitem>
-							Finds files according to a specified file name pattern.
-						</listitem>
-					</varlistentry>
-					<varlistentry>
-						<term> copyFileSync</term>
-						<listitem>
-							Synchronously copies a file.
-						</listitem>
-					</varlistentry>
-					<varlistentry>
-						<term> copyDirSync</term>
-						<listitem>
-							Synchronously copies a directory.
-						</listitem>
-					</varlistentry>
-				</variablelist>
-			</refsect2>
-		</refsect1>
-		<refsect1>
-			<title>Examples</title>
-			<para>The following code snippet travserses throught your current
-				directory and prints every file node.
-			</para>
-			<programlisting>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term> <methodname>rRenameSync</methodname></term>
+<listitem>
+Recursively Renames all files under a directory.
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><methodname>find</methodname></term>
+<listitem>
+Finds files according to a specified file name pattern.
+</listitem>
+</varlistentry>
+<varlistentry>
+<term> <methodname>copyFileSync</methodname></term>
+<listitem>
+Synchronously copies a file.
+</listitem>
+</varlistentry>
+<varlistentry>
+<term> <methodname>copyDirSync</methodname></term>
+<listitem>
+Synchronously copies a directory.
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1>
+<title>Examples</title>
+<para>The following code snippet traverses through your current
+directory and prints every file node.
+</para>
+<programlisting>
 var zfse = require('zfse'); 
 zfse.traverse('./', function(f) {
     console.log(f);
 });
 </programlisting>
-		</refsect1>
-	</refentry>
+</refsect1>
+</refentry>
 
 </article>
