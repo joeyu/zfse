@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE article SYSTEM "/home/joeyu01/workspace/MyZFSEDocbook01/docbook-5.0/dtd/docbook.dtd">
 <article xmlns='http://docbook.org/ns/docbook'>
 
-	<info>
-		<productname class="copyright">zfse</productname>
-	</info>
+	
 	<refentry xml:id="zfse">
-		<refmeta>
-			<refentrytitle>
-				zfse
-				<author>
+		<info>
+		<productname class="copyright">zfse<author>
 					<personname>
 						<firstname>Zhou</firstname>
 						<surname>Yu</surname>
 					</personname>
-				</author>
+					<email>nap.zhou.yu@gmail.com</email>
+</author></productname>
+	</info><refmeta>
+			<refentrytitle>
+				zfse
+				
 			</refentrytitle>
 			<manvolnum>3</manvolnum>
 			<refmiscinfo class="manual"></refmiscinfo>
@@ -29,22 +30,31 @@
 			<synopsis>var zfse = require('zfse');</synopsis>
 		</refsynopsisdiv>
 		<refsect1>
-			<title>INSTALLATION</title>
+			<title>Installation</title>
 			<para>$ npm install zfse</para>
 		</refsect1>
 		<refsect1>
-			<title>DESCRIPTION</title>
+			<title>Description</title>
 			<para>zfse is a node.js module, which extends the 'fs' module with
 				several synchronous functions operating on the file system.
 			</para>
 			<refsect2>
-				<title>PROPERTIES</title>
+				<title>Properties</title>
+                <variablelist>
+                    <varlistentry>
+                        <term> verbose</term>
+                        <listitem>
+                            Verbose display for the debugging purpose.
+                        </listitem>
+                    </varlistentry>
+                
+                </variablelist>
 			</refsect2>
 			<refsect2>
-				<title>METHODS</title>
+				<title>Methods</title>
 				<variablelist>
 					<varlistentry>
-						<term> traverse</term>
+						<term> <methodname>traverse</methodname></term>
 						<listitem>
 							Traverses a directory.
 						</listitem>
@@ -84,16 +94,16 @@
 			</refsect2>
 		</refsect1>
 		<refsect1>
-			<title>EXAMPLES</title>
+			<title>Examples</title>
 			<para>The following code snippet travserses throught your current
 				directory and prints every file node.
 			</para>
 			<programlisting>
-				var zfse = require('zfse');
-				zfse.traverse('./', function(f) {
-				console.log(f);
-				});
-			</programlisting>
+var zfse = require('zfse'); 
+zfse.traverse('./', function(f) {
+    console.log(f);
+});
+</programlisting>
 		</refsect1>
 	</refentry>
 

@@ -1,41 +1,165 @@
-.\" Copyright 2014 Zhou Yu
-.Dd November 30, 2014
-.Os node.js [0.2]
-.Dt ZFSE 3 PRM
-.Sh NAME
-.Nm zfse
-.Nd Zhou's File System Extension to the 'fs' module of node.js.
-.Sh INSTALLATION
+'\" t
+.\"     Title: 
+.\"    Author: Zhou Yu <nap.zhou.yu@gmail.com>
+.\" Generator: DocBook XSL Stylesheets v1.78.1 <http://docbook.sf.net/>
+.\"      Date: 12/02/2014
+.\"    Manual: [FIXME: manual]
+.\"    Source: zfse
+.\"  Language: English
+.\"
+.TH "ZFSE" "3" "12/02/2014" "zfse Zhou Yu" "[FIXME: manual]"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+
+
+.SH "NAME"
+zfse \- Zhou\*(Aqs File System Extension to the \*(Aqfs\*(Aq module of node\&.js\&.
+
+.SH "SYNOPSIS"
+
+
+.sp
+.nf
+var zfse = require(\*(Aqzfse\*(Aq);
+.fi
+.sp
+
+
+.SH "INSTALLATION"
+
+
+.PP
 $ npm install zfse
-.Sh DESCRIPTION
-zfse is a node.js module, which extends the 'fs' module with several synchronous functions operating on the file system.
-.Ss PROPERTIES
-.Bl -tag
-.It Sy verbose
-Verbose display for debugging purpose.
-.El
-.Ss METHODS
-.Bl -tag
-.It Sy traverse
-Traverses a directory.
-.It Sy rRmDirSync
-Recursively removes a directory.
-.It Sy rRenameSync
-Recursively Renames all files under a directory.
-.It Sy find
-Finds files according to a specified file name pattern.
-.It Sy copyFileSync
-Synchronously copies a file.
-.It Sy copyDirSync
-Synchronously copies a directory.
-.El
-.Sh EXAMPLES
-The following code snippet travserses throught your current directory and prints every file node.
-.Bd -literal
-var zfse = require('zfse');
-zfse.traverse('./', function(f) {
-    console.log(f);
+
+
+.SH "DESCRIPTION"
+
+
+.PP
+zfse is a node\&.js module, which extends the \*(Aqfs\*(Aq module with several synchronous functions operating on the file system\&.
+
+.SS "Properties"
+
+
+
+
+.PP
+verbose
+.RS 4
+
+
+
+Verbose display for the debugging purpose\&.
+
+.RE
+
+
+
+.SS "Methods"
+
+
+
+
+.PP
+traverse
+.RS 4
+
+
+
+Traverses a directory\&.
+
+.RE
+.PP
+rRmDirSync
+.RS 4
+
+
+
+Recursively removes a directory\&.
+
+
+.RE
+.PP
+rRenameSync
+.RS 4
+
+
+
+Recursively Renames all files under a directory\&.
+
+.RE
+.PP
+find
+.RS 4
+
+
+
+Finds files according to a specified file name pattern\&.
+
+.RE
+.PP
+copyFileSync
+.RS 4
+
+
+
+Synchronously copies a file\&.
+
+.RE
+.PP
+copyDirSync
+.RS 4
+
+
+
+Synchronously copies a directory\&.
+
+.RE
+
+
+
+.SH "EXAMPLES"
+
+
+.PP
+The following code snippet travserses throught your current directory and prints every file node\&.
+
+
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+var zfse = require(\*(Aqzfse\*(Aq); 
+zfse\&.traverse(\*(Aq\&./\*(Aq, function(f) {
+    console\&.log(f);
 });
-.Ed
-.Sh AUTHORS
-.An "Zhou Yu" Aq nap.zhou.yu@gmail.com
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+
+
+.SH "AUTHOR"
+.PP
+\fBZhou Yu\fR <\&nap\&.zhou\&.yu@gmail\&.com\&>
+.RS 4
+.RE
