@@ -1,120 +1,213 @@
-<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE article SYSTEM "/home/joeyu01/workspace/MyZFSEDocbook01/docbook-5.0/dtd/docbook.dtd">
-<article xmlns='http://docbook.org/ns/docbook'>
-<refentry xml:id="zfse.traverse">
-<info>
-<productname class="copyright">
-zfse
-<author>
-<personname>
-<firstname>Zhou</firstname>
-<surname>Yu</surname>
-</personname>
-<email>nap.zhou.yu@gmail.com</email>
-</author>
-</productname>
-</info>
-<refmeta>
-<refentrytitle>zfse.traverse</refentrytitle>
-<manvolnum>3</manvolnum>
-<refmiscinfo class="manual"></refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname><methodname>zfse.traverse</methodname></refname>
-<refpurpose>
-traverses through the specified directory, and applies the specified callback function to every file node.
-</refpurpose>
-</refnamediv>
-<refsynopsisdiv>
-<methodsynopsis>
-<methodname>traverse</methodname>
-<methodparam>dir</methodparam>
-<methodparam>[options]</methodparam>
-<methodparam>callback</methodparam>
-<methodparam>[callback_args]</methodparam>
-<methodparam>...</methodparam>
-</methodsynopsis>
-</refsynopsisdiv>
-<refsect1>
-<title>Description</title>
-<para>
-<methodname>traverse</methodname>() is a synchronous function, though it has callback function. 
-After traverse() returns, no callback will be called anymore. 
-In other words, the callback is only called during traverse() going through the directory tree and iterating each file node.</para>
-<refsect2>
-<title>Parameters</title>
-<variablelist>
-<varlistentry>
-<term>
-dir
-</term>
-<listitem>
-The directory to traverse
-</listitem>
-</varlistentry>
-<varlistentry>
-<term> [options]</term>
-<listitem>
-The options object.
-<varlistentry>
-<term>[options.depthfirst=true]</term>
-<listitem>
-If options.depthfirst is true, it is a depth-first traversal (see
-http://en.wikipedia.org/wiki/Depth-first_search). Otherwise, it is a breadth-first
-traversal (see http://en.wikipedia.org/wiki/Breadth-first_search).
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>[options.callbackdelay=true]</term>
-<listitem>
-If options.callbackdelay is true, and the current file node is a directory,
-traverse() invokes callback upon that file node before it goes deeply into it.
-</listitem>
-</varlistentry>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term> callback</term>
-<listitem>
-The callback function to invoke for every iterated file.
+<?xml version="1.0" encoding="UTF-8" ?>
+<article xmlns='http://docbook.org/ns/docbook' version="5.0">
+	<title>Node.js ZFSE Programmer&apos;s Manual</title>
+	<subtitle>Method traverse</subtitle>
+	<refentry xml:id="zfse.traverse">
+		<info>
+			<author>
+				<personname>
+					<firstname>Zhou</firstname>
+					<surname>Yu</surname>
+				</personname>
+				<email>nap.zhou.yu@gmail.com</email>
+			</author>
+			<date>December 3, 2014</date>
+		</info>
+		<refmeta>
+			<refentrytitle>zfse.traverse</refentrytitle>
+			<manvolnum>3</manvolnum>
+			<refmiscinfo class="manual"></refmiscinfo>
+		</refmeta>
+		<refnamediv>
+			<refname>
+				<methodname>zfse.traverse</methodname>
+			</refname>
+			<refpurpose>
+				traverses through the specified directory, and applies
+				the specified callback
+				function to every file node.
+			</refpurpose>
+		</refnamediv>
+		<refsynopsisdiv>
+			<title>Synopsis</title>
+			<methodsynopsis>
+				<methodname>traverse</methodname>
+				<methodparam>
+					<type>String</type>
+					<parameter>dir</parameter>
+				</methodparam>
+				<methodparam choice="opt">
+					<type>Object</type>
+					<parameter>options</parameter>
+				</methodparam>
+				<methodparam>
+					<type>Function</type>
+					<parameter>callback</parameter>
+				</methodparam>
+				<methodparam choice="opt" rep="repeat">
+					<type>Object</type>
+					<parameter>callback_args</parameter>
+				</methodparam>
+			</methodsynopsis>
+		</refsynopsisdiv>
+		<refsect1>
+			<title>Description</title>
+			<para>
+				<methodname>traverse</methodname>
+				() is a synchronous function, though it has callback function.
+				After
+				traverse() returns, no callback will be called anymore.
+				In other
+				words, the callback is only called during traverse() going
+				through
+				the directory tree and iterating each file node.
+			</para>
+			<refsect2>
+				<title>Parameters</title>
+				<variablelist>
+					<varlistentry>
+						<term>
+							<type>String</type>
+							<parameter>dir</parameter>
+						</term>
+						<listitem>
+							<para>The directory to traverse</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							<type>Object</type>
+							<parameter>options</parameter>
+						</term>
+						<listitem>
+							<para>The options object.</para>
+							<varlistentry>
+								<term>
+									<fieldsynopsis>
+										<type>Boolean</type>
+										depthfirst
+										<initializer>true</initializer>
+									</fieldsynopsis>
+								</term>
+								<listitem>
+									<para>
+										If depthfirst is
+										true, it is a depth-first
+										traversal (see
+										http://en.wikipedia.org/wiki/Depth-first_search).
+										Otherwise, it
+										is a
+										breadth-first traversal (see
+										http://en.wikipedia.org/wiki/Breadth-first_search).
+									</para>
+								</listitem>
+							</varlistentry>
+							<varlistentry>
+								<term>
+									<fieldsynopsis>
+										<type>Boolean</type>
+										callbackdelay
+										<initializer>true</initializer>
+									</fieldsynopsis>
+								</term>
+								<listitem>
+									<para>
+										If callbackdelay is true, and the current file
+										node is
+										a
+										directory,
+										traverse() invokes callback upon that file
+										node
+										before it goes deeply
+										into it.
+									</para>
 
-callback(file, base, [callback_args], ...)
-<varlistentry>
-<term>file</term>
-<listitem>the iterated file node.</listitem>
-</varlistentry>
-<varlistentry>
-<term>base</term>
-<listitem>the base directory, which equals to the dir argument to traverse().</listitem>
-</varlistentry>
-<varlistentry>
-<term>[callback_args]</term>
-<listitem>equals to the [callback_args] arguments to traverse().</listitem>
-</varlistentry>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>[callback_args]</term>
-<listitem>
-The optional arguments, which will be passed to callback.
-</listitem>
-</varlistentry>
-</variablelist>
-</refsect2>
-</refsect1>
-<refsect1>
-<title>Examples</title>
-<example>
-<para>The following code snippet traverses through your current
-directory and prints every file node.
-</para>
-<programlisting>
-var zfse = require('zfse'); 
-zfse.traverse('./', {'depthfirst': true, 'callbackdelay': false}, function(f) {
-    console.log(f);
-});
-</programlisting>
-</example>
-</refsect1>
-</refentry>
+								</listitem>
+							</varlistentry>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							<type>Function</type>
+							<parameter>callback</parameter>
+						</term>
+						<listitem>
+							<para>
+								The callback function to invoke for every iterated file.
+							</para>
+							<funcprototype>
+								<funcdef>
+									<function>callback</function>
+								</funcdef>
+								<paramdef>
+									<parameter>file</parameter>
+								</paramdef>
+								<paramdef>
+									<parameter>base</parameter>
+								</paramdef>
+								<paramdef choice="opt">
+									<parameter>callback_args</parameter>
+								</paramdef>
+								<varargs />
+							</funcprototype>
+							<variablelist>
+								<varlistentry>
+									<term>file</term>
+									<listitem>
+										<para>the iterated file node.</para>
+									</listitem>
+								</varlistentry>
+								<varlistentry>
+									<term>base</term>
+									<listitem>
+										<para>
+											the base directory, which equals to the dir argument to
+											<methodname>traverse</methodname>
+											().
+										</para>
+									</listitem>
+								</varlistentry>
+								<varlistentry>
+									<term>callback_args</term>
+									<listitem>
+										<para>
+											equals to the callback_args arguments to
+											<methodname>traverse</methodname>
+											().
+										</para>
+									</listitem>
+								</varlistentry>
+							</variablelist>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term>
+							<type>Object</type>
+							<parameter>callback_args</parameter>
+						</term>
+						<listitem>
+							<para>The optional arguments, which will be passed to callback.
+							</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+			</refsect2>
+		</refsect1>
+		<refsect1>
+			<title>Examples</title>
+			<example>
+				<para>The following code snippet traverses through your current
+					directory and prints every file node.
+				</para>
+				<programlisting>
+					var zfse = require('zfse');
+					zfse.traverse('./',
+					{'depthfirst': true, 'callbackdelay': false}, function(f) {
+					&#x20;&#x20;&#x20;&#x20;console.log(f);
+					});
+				</programlisting>
+			</example>
+		</refsect1>
+	</refentry>
 
 </article>
