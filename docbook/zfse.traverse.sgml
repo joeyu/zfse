@@ -30,7 +30,7 @@
 		</refnamediv>
 		<refsynopsisdiv>
 			<title>Synopsis</title>
-			<methodsynopsis>
+			<methodsynopsis language="javascript">
 				<methodname>traverse</methodname>
 				<methodparam>
 					<type>String</type>
