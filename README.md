@@ -174,9 +174,10 @@ This method is a synchronous function, though it calls a callback function.
 
     Optional arguments passed to `callback`.
 
-#####Exammples
+#####Examples
 The following code snippet traverses through your current directory and prints every file node.
 ```javascript
+var zfse = require('zfse');
 zfse.traverse('./', function (f) {
     console.log(f);
 });
