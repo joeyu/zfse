@@ -29,12 +29,15 @@ This method copies a directory.
 
 #####Arguments
 * `src` : String
+
     The source directory.
 
 * `dst` : String 
+
     The destination directory.
 
 * [`options`] : Object
+
     Options. 
 
 
@@ -48,12 +51,15 @@ If the destination is a directory, the source file copy will be copied to it wit
 
 #####Arguments
 * `src` : String
+
     The source file.
 
 * `dst` : String 
+
     The destination file, or directory.
 
 * [`options`] : Object
+
     Options. 
 
 <hr>
@@ -66,10 +72,13 @@ This method is a synchronous function, though it calls a callback function.
 
 #####Arguments
 * `dir` : String 
+
     The directory from which search starts.
 
 * [`namePattern`] : RegExp
+
     Search pattern in regular expression.
+
     If `namePattern` isn't specified, all files (including sub-directories) will be matched.
 
 * `callback` : Function
@@ -89,10 +98,15 @@ This method works in a similar way as linux shell command 'rm -rf'. If `dir` is 
 
 #####Arguments
 * `dir` : String 
+
     The directory to remove.
+
 * [`options`] : Object
+
     Options.
+
   * [`options.dryrun=false`] : Boolean
+
         Dry-runs with verbose output only.
 
 
@@ -107,18 +121,23 @@ This method works in a similar way as the following linux shell command:
 
 #####Arguments
 * `dir` : String
+
     The directory from which search starts.
 
 * `namePattern` : RegExp
+
     Search pattern in regular expression.
 
 * `newName` : String
+
     The new file name.
 
 * [`options`] : Object
+
     Options.
 
   * [`options.dryrun=false`]  : Boolean
+
         Dry-runs with verbose output only.
 
 
@@ -132,19 +151,27 @@ This method is a synchronous function, though it calls a callback function.
 
 #####Arguments
 * `dir` : String
+
     The directory from which search starts.
+
 * [`options`] : Object
+
     Options.
+
   * [`options.depthfirst=true`] : Boolean
+
         If true, [depth-first traversal](http://en.wikipedia.org/wiki/Depth-first_search); otherwise, [breadth-first traversal](http://en.wikipedia.org/wiki/Breadth-first_search)
 
   * [`options.callbackdelay=true`] : Boolean
+
         If true, when meeting a file node, calling to `callback` is delayed until returning back from all its sub-nodes.
         
 * `callback` : Function
+
     The callback function to run for each file node.
 
 * [`callback_arg`...]
+
     Optional arguments passed to `callback`.
 
 #####Exammples
