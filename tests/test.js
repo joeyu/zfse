@@ -19,18 +19,18 @@ var d = Object.keys(testdir)[0];
 
 
 console.log("Testing copyFileSync()");
-zfse.copyFileSync(d + '/' + 'f11', d + '/' + 'd12/f123_f11');
+zfse.copyFile(d + '/' + 'f11', d + '/' + 'd12/f123_f11');
 
 console.log("Testing copyDirSync()");
-zfse.copyDirSync(d, d + '_copy');
+zfse.copyDir(d, d + '_copy');
 zfse.find(d + '_copy');
 
 console.log("Testing rRenameSync()");
-zfse.rRenameSync(d, '2', '2m', {'verbose': true});
+zfse.rRename(d, '2', '2m', {'verbose': true});
 
 console.log("Testing rRmDirSync()");
-zfse.rRmDirSync(d);
-zfse.rRmDirSync(d + '_copy');
+zfse.rRmDir(d);
+zfse.rRmDir(d + '_copy');
 if (fs.existsSync(d)) {
     console.error("Removing '%s' failed", d); 
     procoss.exit(1);
