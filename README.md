@@ -22,6 +22,7 @@ Method                      | Brief
 [`rRename`](#rRename)       |Recursively renames the files under a directory. 
 [`traverse`](#traverse)     |Traverses a directory with a specified callback applied to every file node.
 
+<hr>
 <a name="copyDir" />
 ####copyDir(src, dst, [options])
 This method copies a directory.
@@ -34,6 +35,7 @@ Argument        | Type      | Brief
 [`options`]     | Object    | Options. 
 
 
+<hr>
 <a name="copyFile" />
 ####copyFile(src, dst, [options])
 This method copies a file.
@@ -47,7 +49,7 @@ Argument        | Type      | Brief
 `dst`           | String    | The destination file, or directory.
 [`options`]     | Object    | Options. 
 
-
+<hr>
 <a name="find" />
 ####find(dir, [namePattern], callback, [callback_arg...])
 Searches the specified directory `dir` for files matching the `namePattern` file name pattern, calling the `callback` function.
@@ -64,8 +66,7 @@ Argument            | Type      | Brief
 
 If `namePattern` isn't specified, all files (including sub-directories) will be matched.
 
-
-
+<hr>
 <a name="rRmDir" />
 ####rRmDir(dir, [options])
 Recursively removes the `dir` directory synchronously. 
@@ -80,7 +81,7 @@ Argument            | Type      | Brief
 [`options.dryrun`]  | Boolean   | Dry-runs with verbose output only.
 
 
-
+<hr>
 <a name="rRename" />
 ####rRename(dir, namePattern, newName, [options])
 This method searches the `dir` directory for files with names that match the `namePattern` regexp, and renames the matched files to `newName`.
@@ -98,6 +99,7 @@ Argument                    | Type      | Brief
 [`options.dryrun=false`]    | Boolean   | Dry-runs with verbose output only.
 
 
+<hr>
 <a name="traverse" />
 ####traverse(dir, [options], callback, [callback_arg...])
 This method traverses through the `dir` directory tree, and applies the `callback` callback function to each file node.
