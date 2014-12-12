@@ -1,6 +1,6 @@
 {
   "name": "zfse",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Zhou's File System Extension to the 'fs' module of node.js.",
   "main": "zfse.js",
   "scripts": {
