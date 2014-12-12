@@ -13,11 +13,11 @@ var path = require('path');
 module.exports = {
     'verbose':      false,          // verbose output
     'traverse':     traverse,       // Traverses a directory
-    'rRmDirSync':   rRmDirSync,     // Recursively removes a directory
-    'rRenameSync':  rRenameSync,    // Recursively Renames all files under a directory
+    'rRmDir':   rRmDir,     // Recursively removes a directory
+    'rRename':  rRename,    // Recursively renames all files under a directory
     'find':         find,           // Finds files according to a specified file name pattern
-    'copyFileSync': copyFileSync,   // Synchronously copies a file
-    'copyDirSync':  copyDirSync,    // Synchronously copies a directory
+    'copyFile': copyFile,   // Synchronously copies a file
+    'copyDir':  copyDir,    // Synchronously copies a directory
 };
 
 /**
@@ -108,12 +108,12 @@ function traverse(fpath, options, callback) {
  * shell command 'rm -rf'. 
  * If 'dir' is single file, this function works in the same way as fs.unlinkSync()
  *
- * @method rRmDirSync
+ * @method rRmDir
  * @param dir {String} The directory to remove.
  * @param [options] {Object} Options when running this function.
  * @param [options.dryrun=false] {Boolean} Dry-runs the function w/o actually renaming.
  */
-function rRmDirSync(dir, options) {
+function rRmDir(dir, options) {
     var dryrun = false;
 
     for (var key in options) {
@@ -139,17 +139,17 @@ function rRmDirSync(dir, options) {
 }
 
 /**
- * Recursively renames files matching the 'oldNamePattern' regex to 'newName'.
- * This function works a a similar way as linux shell command 'find -name oldNamePattern -exec mv \{\} newName \;'.
+ * Recursively renames files matching the 'namePattern' regex to 'newName'.
+ * This function works a a similar way as linux shell command 'find -name namePattern -exec mv \{\} newName \;'.
  * 
- * @method rRenameSync
+ * @method rRename
  * @param dir {String} The directory from which search starts.
- * @param oldNamePattern {RegExp} Search pattern in regular expression.
+ * @param namePattern {RegExp} Search pattern in regular expression.
  * @param newName {String} The new name.
  * @param [options] {Object} Options when running this function.
  * @param [options.dryrun=false] {Boolean} Dry-runs the function w/o actually renaming.
  */
-function rRenameSync(dir, oldNamePattern, newName, options) {
+function rRename(dir, namePattern, newName, options) {
     var dryrun = false;
 
     for (var key in options) {
@@ -159,7 +159,7 @@ function rRenameSync(dir, oldNamePattern, newName, options) {
     traverse(dir, {'depthfirst': true, 'callbackdelay': true}, function (fpath) {
         var basename = path.basename(fpath);
         var dirname = path.dirname(fpath);
-        var basename2 = basename.replace(oldNamePattern, newName);
+        var basename2 = basename.replace(namePattern, newName);
         if (basename2 !== basename) {
             var fpath2  = path.join(dirname, basename2);
             if (module.exports.verbose) {
@@ -219,12 +219,12 @@ function find(dir, namePattern, callback) {
  * If the destination is a directory, the source file copy will be copied to it with the
  * same file name.
  *
- * @method copyFileSync
+ * @method copyFile
  * @param src {String} The source file.
  * @param dst {String} The destination file, or directory.
  * @param [options] {Object} Options.
  */
-function copyFileSync(src, dst, options) {
+function copyFile(src, dst, options) {
     var stat;
     if (!fs.existsSync(src)) {
         throw "File doesn't exists!";
@@ -259,14 +259,14 @@ function copyFileSync(src, dst, options) {
 }
     
 /**
- * Synchromously copies a directory.
+ * Synchronously copies a directory.
  *
- * @method copyDirSync
+ * @method copyDir
  * @param src {String} The source directory.
  * @param dst {String} The destination directory.
  * @param [options] {Object} Options.
  */
-function  copyDirSync(src, dst, options) {
+function  copyDir(src, dst, options) {
     var stat;
 
     src = path.normalize(src);
@@ -299,7 +299,7 @@ function  copyDirSync(src, dst, options) {
         var fpathDst = path.join(dst, path.relative(baseSrc, fpathSrc));
         var stat = fs.lstatSync(fpathSrc);
         if (stat.isFile()) {
-            copyFileSync(fpathSrc, fpathDst);
+            copyFile(fpathSrc, fpathDst);
         }
         else if (stat.isDirectory()) {
             fs.mkdirSync(fpathDst);

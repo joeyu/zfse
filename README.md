@@ -18,4 +18,19 @@ zfse.traverse('./', function (f) {
 ```
 
 ##API
-http://joeyu.github.io/zfse/modules/zfse.html
+###Methods
+:[*copyDir*](copyDir)       |:Copies a directory.
+:*copyFile*     |:Copies a file.
+:*find*         |:Searches a directory.
+:*rRmDir*       |:Recursively removes a directory.
+:*rRename*      |:Recursively renames the files under a directory. 
+:*traverse*     |:Traverses a directory with a specified callback applied to every file node.
+
+####copyDir(src, dst, [options])
+This method copies a directory synchronously.
+
+#####Arguments
+`src` | String | The source directory.
+`dst` | String | The destination directory.
+`[options]` | Object | Options. 
+
