@@ -28,14 +28,18 @@ Method                      | Brief
 This method copies a directory.
 
 #####Arguments
-Argument        | Type      | Brief
-:---------------|:----------|:---------
-`src`           | String    | The source directory.
-`dst`           | String    | The destination directory.
-[`options`]     | Object    | Options. 
+* `src` : String
+    The source directory.
+
+* `dst` : String 
+    The destination directory.
+
+* [`options`] : Object
+    Options. 
 
 
 <hr>
+
 <a name="copyFile" />
 ####copyFile(src, dst, [options])
 This method copies a file.
@@ -43,13 +47,17 @@ This method copies a file.
 If the destination is a directory, the source file copy will be copied to it with the same file name.
 
 #####Arguments
-Argument        | Type      | Brief
-:---------------|:----------|:---------
-`src`           | String    | The source file.
-`dst`           | String    | The destination file, or directory.
-[`options`]     | Object    | Options. 
+* `src` : String
+    The source file.
+
+* `dst` : String 
+    The destination file, or directory.
+
+* [`options`] : Object
+    Options. 
 
 <hr>
+
 <a name="find" />
 ####find(dir, [namePattern], callback, [callback_arg...])
 Searches the specified directory `dir` for files matching the `namePattern` file name pattern, calling the `callback` function.
@@ -57,16 +65,22 @@ Searches the specified directory `dir` for files matching the `namePattern` file
 This method is a synchronous function, though it calls a callback function.
 
 #####Arguments
-Argument            | Type      | Brief
-:-------------------|:----------|:---------
-`dir`               | String    | The directory from which search starts.
-[`namePattern`]     | RegExp    | Search pattern in regular expression.
-`callback`          | Function  | The callback function to run for each file node that is found.
-[`callback_arg`...] |           | Optional arguments passed to `callback`
+* `dir` : String 
+    The directory from which search starts.
 
-If `namePattern` isn't specified, all files (including sub-directories) will be matched.
+* [`namePattern`] : RegExp
+    Search pattern in regular expression.
+    If `namePattern` isn't specified, all files (including sub-directories) will be matched.
+
+* `callback` : Function
+    The callback function to run for each file node that is found.
+
+* [`callback_arg`...] 
+    Optional arguments passed to `callback`
+
 
 <hr>
+
 <a name="rRmDir" />
 ####rRmDir(dir, [options])
 Recursively removes the `dir` directory synchronously. 
@@ -74,14 +88,16 @@ Recursively removes the `dir` directory synchronously.
 This method works in a similar way as linux shell command 'rm -rf'. If `dir` is a single file, this method works in the same way as fs.unlinkSync()
 
 #####Arguments
-Argument            | Type      | Brief
-:-------------------|:----------|:---------
-`dir`               | String    | The directory to remove.
-[`options`]         | Object    | Options.
-[`options.dryrun`]  | Boolean   | Dry-runs with verbose output only.
+* `dir` : String 
+    The directory to remove.
+* [`options`] : Object
+    Options.
+  * [`options.dryrun=false`] : Boolean
+        Dry-runs with verbose output only.
 
 
 <hr>
+
 <a name="rRename" />
 ####rRename(dir, namePattern, newName, [options])
 This method searches the `dir` directory for files with names that match the `namePattern` regexp, and renames the matched files to `newName`.
@@ -90,16 +106,24 @@ This method works in a similar way as the following linux shell command:
 >find -name namePattern -exec mv \\{\\} newName \;
 
 #####Arguments
-Argument                    | Type      | Brief
-:---------------------------|:----------|:---------
-`dir`                       | String    | The directory from which search starts.
-`namePattern`               | RegExp    | Search pattern in regular expression.
-`newName`                   | String    | The new file name.
-[`options`]                 | Object    | Options.
-[`options.dryrun=false`]    | Boolean   | Dry-runs with verbose output only.
+* `dir` : String
+    The directory from which search starts.
+
+* `namePattern` : RegExp
+    Search pattern in regular expression.
+
+* `newName` : String
+    The new file name.
+
+* [`options`] : Object
+    Options.
+
+  * [`options.dryrun=false`]  : Boolean
+        Dry-runs with verbose output only.
 
 
 <hr>
+
 <a name="traverse" />
 ####traverse(dir, [options], callback, [callback_arg...])
 This method traverses through the `dir` directory tree, and applies the `callback` callback function to each file node.
@@ -107,14 +131,21 @@ This method traverses through the `dir` directory tree, and applies the `callbac
 This method is a synchronous function, though it calls a callback function.
 
 #####Arguments
-Argument                        | Type      | Brief
-:-------------------------------|:----------|:---------
-`dir`                           | String    | The directory from which search starts.
-[`options`]                     | Object    | Options.
-[`options.depthfirst=true`]     | Boolean   | If true, [depth-first traversal](http://en.wikipedia.org/wiki/Depth-first_search); otherwise, [breadth-first traversal](http://en.wikipedia.org/wiki/Breadth-first_search)
-[`options.callbackdelay=true`]  | Boolean   | If true, when meeting a file node, calling to `callback` is delayed until returning back from all its sub-nodes.
-`callback`                      | Function  | The callback function to run for each file node.
-[`callback_arg`...]             |           | Optional arguments passed to `callback`.
+* `dir` : String
+    The directory from which search starts.
+* [`options`] : Object
+    Options.
+  * [`options.depthfirst=true`] : Boolean
+        If true, [depth-first traversal](http://en.wikipedia.org/wiki/Depth-first_search); otherwise, [breadth-first traversal](http://en.wikipedia.org/wiki/Breadth-first_search)
+
+  * [`options.callbackdelay=true`] : Boolean
+        If true, when meeting a file node, calling to `callback` is delayed until returning back from all its sub-nodes.
+        
+* `callback` : Function
+    The callback function to run for each file node.
+
+* [`callback_arg`...]
+    Optional arguments passed to `callback`.
 
 #####Exammples
 The following code snippet traverses through your current directory and prints every file node.
