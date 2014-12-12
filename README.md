@@ -15,12 +15,12 @@ var zfse = require('zfse');
 ###Methods
 Method                      | Brief
 :---------------------------|:-----
-[`copyDir`](copyDir)        |Copies a directory.
-[`copyFile`](copyFile       |Copies a file.
-[`find`](find)              |Searches a directory.
-[`rRmDir`](rRmDir)          |Recursively removes a directory.
-[`rRename`](rRename)        |Recursively renames the files under a directory. 
-[`traverse`](traverse)      |Traverses a directory with a specified callback applied to every file node.
+[`copyDir`](#copyDir)       |Copies a directory.
+[`copyFile`](#copyFile)     |Copies a file.
+[`find`](#find)             |Searches a directory.
+[`rRmDir`](#rRmDir)         |Recursively removes a directory.
+[`rRename`](#rRename)       |Recursively renames the files under a directory. 
+[`traverse`](#traverse)     |Traverses a directory with a specified callback applied to every file node.
 
 <a name="copyDir" />
 ####copyDir(src, dst, [options])
@@ -86,7 +86,7 @@ Argument            | Type      | Brief
 This method searches the `dir` directory for files with names that match the `namePattern` regexp, and renames the matched files to `newName`.
 
 This method works in a similar way as the following linux shell command: 
->find -name namePattern -execmv \{\} newName \;
+>find -name namePattern -exec mv \\{\\} newName \;
 
 #####Arguments
 Argument                    | Type      | Brief
