@@ -14,48 +14,35 @@ Zhou's File System Extension to the 'fs' module of node.js.
 var zfse = require('zfse');
 ```
 
+<a name="Methods">
 ##API
 ###Methods
-Method                      | Brief
-:---------------------------|:-----
-[`copyDir`](#copyDir)       |Copies a directory.
-[`copyFile`](#copyFile)     |Copies a file.
-[`find`](#find)             |Searches a directory.
-[`rRmDir`](#rRmDir)         |Recursively removes a directory.
-[`rRename`](#rRename)       |Recursively renames the files under a directory. 
-[`traverse`](#traverse)     |Traverses a directory with a specified callback applied to every file node.
-
-<hr>
-<a name="copyDir" />
-####copyDir(src, dst, [options])
-This method copies a directory.
-
-#####Arguments
-* `src` : String
-
-    The source directory.
-
-* `dst` : String 
-
-    The destination directory.
-
-* [`options`] : Object
-
-    Options. 
-
+Method                              | Brief
+:-----------------------------------|:-----
+[`copy`](#copy)                     |Copies a file or directory.
+[`find`](#find)                     |Searches a directory.
+[`mkDirs`](#mkDirs)                 |Creates a directory and all its non-existing parents.
+[`move`](#move)                     |Moves a file or directory.
+[`resolveSymLink`](#resolveSymbLink)|Resolves a symbolic link.
+[`rRmDir`](#rRmDir)                 |Recursively removes a directory.
+[`rRename`](#rRename)               |Recursively renames the files under a directory. 
+[`traverse`](#traverse)             |Traverses a directory with a specified callback applied to every file node.
 
 <hr>
 
-<a name="copyFile" />
-####copyFile(src, dst, [options])
-This method copies a file.
+[Go back to **API Methods**](#Methods)
+<a name="copy" />
+####copy(src, dst, [options])
+This method copies a file or directory
 
 If the destination is a directory, the source file copy will be copied to it with the same file name.
 
 #####Arguments
 * `src` : String
 
-    The source file.
+    The source file, or directory.
+
+    If `src` is a directory ended up with *path.sep* (i.e. '*/*' in linux), not `src` itself but only all its child nodes will be copied.
 
 * `dst` : String 
 
@@ -64,6 +51,14 @@ If the destination is a directory, the source file copy will be copied to it wit
 * [`options`] : Object
 
     Options. 
+
+  * [`options.symlink=dereference`] : String
+
+        This option is only applicable when `src` is a symbolic link. And, if `src` links to a directory, it will applies to its child nodes only.
+
+    * '*dereference*'   - follows the symbolic link.
+    * '*link*'          - just copies the link literally.
+    * '*linkorigin*'    - Creates a new symbolic link which links to the exactly same destination to which `src` links.
 
 <hr>
 
@@ -93,11 +88,56 @@ This method is a synchronous function, though it calls a callback function.
 
 <hr>
 
+[Go back to **API Methods**](#Methods)
+<a name="mkDirs" />
+####mkDirs(dir)
+Creates a directory and all its non-existing parents.
+
+This method works in a similar way as linux shell command 'mkdir -p' does.
+
+#####Arguments
+* `dir` : String 
+
+    The directory to create.
+
+#####Return
+* Succeeded - {String} The resolved path.
+* Failed    - null
+
+<hr>
+
+[Go back to **API Methods**](#Methods)
+<a name="resolveSymLink" />
+####resolveSymLink(symlink, [options])
+Resolves a symbolic link.
+
+#####Arguments
+* `symlink` : String 
+
+    The symbolic link.
+
+    If `symLink` isn't a symbolic link, the method works in the same way as path.resolve() does;
+
+* [`options`] : Object
+
+    Options.
+
+  * [`options.parents=false`] : Boolean
+
+        If true, resolves all its parent directories too.
+
+#####Return
+* Succeeded - {String} The resolved path.
+* Failed    - null
+
+<hr>
+
+[Go back to **API Methods**](#Methods)
 <a name="rRmDir" />
 ####rRmDir(dir, [options])
 Recursively removes the `dir` directory synchronously. 
 
-This method works in a similar way as linux shell command 'rm -rf'. If `dir` is a single file, this method works in the same way as fs.unlinkSync()
+This method works in a similar way as linux shell command 'rm -rf' does. If `dir` is a single file, this method works in the same way as fs.unlinkSync()
 
 #####Arguments
 * `dir` : String 
@@ -115,6 +155,7 @@ This method works in a similar way as linux shell command 'rm -rf'. If `dir` is 
 
 <hr>
 
+[Go back to **API Methods**](#Methods)
 <a name="rRename" />
 ####rRename(dir, namePattern, newName, [options])
 This method searches the `dir` directory for files with names that match the `namePattern` regexp, and renames the matched files to `newName`.
@@ -150,6 +191,7 @@ Note:
 
 <hr>
 
+[Go back to **API Methods**](#Methods)
 <a name="traverse" />
 ####traverse(dir, [options], callback, [callback_arg...])
 This method traverses through the `dir` directory tree, and applies the `callback` callback function to each file node.
@@ -172,6 +214,10 @@ This method is a synchronous function, though it calls a callback function.
   * [`options.callbackdelay=true`] : Boolean
 
         If true, when meeting a file node, calling to `callback` is delayed until returning back from all its sub-nodes.
+        
+  * [`options.dereference=true`] : Boolean
+
+        If true, follows symbolic links under `dir`.
         
 * `callback` : Function
 
