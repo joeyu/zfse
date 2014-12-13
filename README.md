@@ -23,7 +23,7 @@ Method                              | Brief
 [`find`](#find)                     |Searches a directory.
 [`mkDirs`](#mkDirs)                 |Creates a directory and all its non-existing parents.
 [`move`](#move)                     |Moves a file or directory.
-[`resolveSymLink`](#resolveSymbLink)|Resolves a symbolic link.
+[`resolveSymLink`](#resolveSymLink)|Resolves a symbolic link.
 [`rRmDir`](#rRmDir)                 |Recursively removes a directory.
 [`rRename`](#rRename)               |Recursively renames the files under a directory. 
 [`traverse`](#traverse)             |Traverses a directory with a specified callback applied to every file node.
@@ -56,12 +56,15 @@ If the destination is a directory, the source file copy will be copied to it wit
 
         This option is only applicable when `src` is a symbolic link. And, if `src` links to a directory, it will applies to its child nodes only.
 
-    * '*dereference*'   - follows the symbolic link.
-    * '*link*'          - just copies the link literally.
-    * '*linkorigin*'    - Creates a new symbolic link which links to the exactly same destination to which `src` links.
+        Value               |Description
+        :-------------------|:-----------
+        '*dereference*'     |follows the symbolic link.
+        '*link*'            |just copies the link literally.
+        '*linkorigin*'      |Creates a new symbolic link which links to the exactly same destination to which `src` links.
 
 <hr>
 
+[Go back to **API Methods**](#Methods)
 <a name="find" />
 ####find(dir, [namePattern], callback, [callback_arg...])
 Searches the specified directory `dir` for files matching the `namePattern` file name pattern, calling the `callback` function.
@@ -80,11 +83,16 @@ This method is a synchronous function, though it calls a callback function.
     If `namePattern` isn't specified, all files (including sub-directories) will be matched.
 
 * `callback` : Function
+
     The callback function to run for each file node that is found.
 
 * [`callback_arg`...] 
+
     Optional arguments passed to `callback`
 
+#####Return
+
+#####Examples
 
 <hr>
 
@@ -101,8 +109,13 @@ This method works in a similar way as linux shell command 'mkdir -p' does.
     The directory to create.
 
 #####Return
-* Succeeded - {String} The resolved path.
-* Failed    - null
+            | Type      |Description
+------------|-----------|--------
+Succeeded   |String     |The resolved path.
+Failed      |           |*null*
+
+
+#####Examples
 
 <hr>
 
@@ -116,7 +129,7 @@ Resolves a symbolic link.
 
     The symbolic link.
 
-    If `symLink` isn't a symbolic link, the method works in the same way as path.resolve() does;
+    If `symLink` isn't a symbolic link, the method works in the same way as `path.resolve()` does.
 
 * [`options`] : Object
 
@@ -127,8 +140,12 @@ Resolves a symbolic link.
         If true, resolves all its parent directories too.
 
 #####Return
-* Succeeded - {String} The resolved path.
-* Failed    - null
+            | Type      |Description
+------------|-----------|--------
+Succeeded   |String     |The resolved path.
+Failed      |           |*null*
+
+#####Examples
 
 <hr>
 
@@ -152,6 +169,9 @@ This method works in a similar way as linux shell command 'rm -rf' does. If `dir
 
         Dry-runs with verbose output only.
 
+#####Return
+
+#####Examples
 
 <hr>
 
@@ -188,6 +208,9 @@ Note:
 
         Dry-runs with verbose output only.
 
+#####Return
+
+#####Examples
 
 <hr>
 
@@ -226,6 +249,8 @@ This method is a synchronous function, though it calls a callback function.
 * [`callback_arg`...]
 
     Optional arguments passed to `callback`.
+    
+#####Return
 
 #####Examples
 The following code snippet traverses through your current directory and prints every file node.
