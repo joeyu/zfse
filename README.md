@@ -1,6 +1,9 @@
 #zfse
 
-Zhou's File System Extension to the 'fs' module of node.js
+Zhou's File System Extension to the 'fs' module of node.js.
+
+`zfse` aims to provide a set of high-level, **synchronous** utility functions operating upon the file system.
+
 
 ##Installation
     $ npm install zfse
@@ -118,6 +121,10 @@ This method searches the `dir` directory for files with names that match the `na
 
 This method works in a similar way as the following linux shell command: 
 >find -name namePattern -exec mv \\{\\} newName \;
+
+Note:
+
+    The replacement of `namePattern` with `newName` simply calls String.prototype.replace().
 
 #####Arguments
 * `dir` : String
