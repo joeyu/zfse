@@ -17,12 +17,13 @@ module.exports = {
     'isSymLink':        isSymLink,      // Checks if a file is symbolic link.
     'mkDirs':           mkDirs,         // Creates a directory and all its not existed parents.
     'move':             move,           // Moves a file or direcotry.
-    'resolveFileType':  resolveFileType // Resolves the type of a file node.
+    'resolveFileType':  resolveFileType,// Resolves the type of a file node.
     'resolveSymLink':   resolveSymLink, // Resolves a symbolic link.
     'search':           search,         // Searches a directory.
     'remove':           remove,         // Recursively removes a directory.
     'sRename':          sRename,        // Recursively renames all files under a directory.
     'traverse':         traverse,       // Traverses a directory.
+    'Arguments':        Arguments,
 };
 
 /**
@@ -39,13 +40,17 @@ module.exports = {
  * @param callback {Function} The callback function to call for each file node traversing through.
  * @param [...callback_arg] The parameters to be passed to the 'callback'.
  */
-function traverse(dir, options, callback) {
-    var cbArgs = Array.prototype.slice.call(arguments, 3); // gets callback arguments
-    if (typeof options === 'function') {
-        callback = options;
-        options = null;
-        cbArgs = Array.prototype.slice.call(arguments, 2); // gets callback arguments
-    }
+function traverse() { // traverse(dir, [options], callback)
+    var args = new Arguments(arguments, [
+        {'name': 'dir', 'type': 'string', 'class': 'String'},
+        {'name': 'options', 'class': 'Object', 'optional': true},
+        {'name': 'callback', 'type': 'function'}
+    ];
+    var dir = args.dir;
+    var options = args.options;
+    var callback = args.callback;
+    var cbArgs = args.extra;
+
     var base = dir;
     var depthfirst = true; 
     var callbackdelay = true; 
@@ -230,27 +235,18 @@ function sRename(dir, namePattern, newName, options) {
  * @param [callback] {Function} The callback funtion to run for each file node that is found
  * @param [...callback_arg] The parameters to be passed to the 'callback'.
  */
-function search(dir) { // (dir, [namePattern], [options], callback, [callback_extra_arg...])
-    var i;
-    var namePattern = null;
-    var options = null;
-    var callback = null;
-    for (i = 1; i < 4; i ++) {
-        if (!namePattern && !options && arguments[i] instanceof RegExp) {
-            namePattern = arguments[i];
-            continue;
-        }
-        if (!options && typeof arguments[i] === 'object' && !(arguments[i] instanceof RegExp)) {
-            options = arguments[i];
-            continue;
-        }
-        
-        if (typeof arguments[i] === 'function') {
-            callback = arguments[i];
-            break;
-        }
-    }
-    var cbArgs = Array.prototype.slice.call(arguments, i + 1); // gets callback arguments
+function search() { // (dir, [namePattern], [options], callback, [callback_extra_arg...])
+    var args = new Arguments(arguments, [
+        {'name': 'callback', 'type': 'string', 'class': 'String'}
+        {'name': 'namePattern', 'class': 'RegExp', 'optional': true},
+        {'name': 'options', 'class': 'Object', 'optional': true},
+        {'name': 'callback', 'class': 'Function'}
+    ];
+    var dir = args.dir;
+    var namePattern = args.namePattern;
+    var options = args.options;
+    var callback = args.callback;
+    var cbArgs = args.extra;
 
     traverse (dir, options, function (f) {
         var found = false;
@@ -526,4 +522,50 @@ function resolveFileType(file) {
     }
 }
 
+
+// function (must0, [option0], [option1], must1, [options_extra...])
+function Arguments(args, spec) {
+    var i, j;
+    for (j = 0; j < spec.length; j ++) {
+        this[spec[j].name] = null;
+    }
+    
+    for (i = j = 0; i < args.length && j < spec.length; i ++) {
+        while (j < spec.length) {
+            var isMatched = true;
+
+            // test type
+            if (spec[j].hasOwnProperty('type') && typeof args[i] !== spec[j]['type']) {
+                isMatched = false;
+            }
+            
+            // test class
+            if (isMatched && spec[j].hasOwnProperty('class') && !(args[i] instanceof spec[j]['class'])) {
+                isMatched = false;
+            }
+            
+            if (!isMatched) {
+               if (spec[j].hasOwnProperty('optional') && spec[j].optional) {
+                    ++ j;
+                    continue; // to match next spec item.
+                } else {
+                    throw "Error: mismatching";
+                }
+            }
+
+            // matched
+            this[spec[j++].name] = args[i];
+            break;
+        }
+    }
+
+    // Stores remaining args items in `extra`.
+    if (i < args.length) {
+        this.extra = Array.prototype.slice.call(args, i);
+    }
+}
+
+
+
+          
 
