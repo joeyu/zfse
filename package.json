@@ -7,7 +7,7 @@
     "test": "tests/test.js"
   },
   { "dependencies" :
-       { "zvargs" : ">0.1.1" } 
+       { "zvargs" : ">=0.1.1" } 
   },
   "repository": {
     "type": "git",
