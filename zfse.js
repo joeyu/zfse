@@ -9,6 +9,7 @@
  */
 var fs = require('fs');
 var path = require('path');
+var zvargs = require('zvargs');
 
 module.exports = {
     'verbose':          false,          // verbose output.
@@ -23,7 +24,6 @@ module.exports = {
     'remove':           remove,         // Recursively removes a directory.
     'sRename':          sRename,        // Recursively renames all files under a directory.
     'traverse':         traverse,       // Traverses a directory.
-    'Arguments':        Arguments,
 };
 
 /**
@@ -41,9 +41,9 @@ module.exports = {
  * @param [...callback_arg] The parameters to be passed to the 'callback'.
  */
 function traverse() { // traverse(dir, [options], callback)
-    var args = new Arguments(arguments, [
+    var args = new zvargs.Arguments(arguments, [
         {'name': 'dir', 'type': 'string', 'class': 'String'},
-        {'name': 'options', 'class': 'Object', 'optional': true},
+        {'name': 'options', 'class': Object, 'optional': true},
         {'name': 'callback', 'type': 'function'}
     ];
     var dir = args.dir;
@@ -236,11 +236,11 @@ function sRename(dir, namePattern, newName, options) {
  * @param [...callback_arg] The parameters to be passed to the 'callback'.
  */
 function search() { // (dir, [namePattern], [options], callback, [callback_extra_arg...])
-    var args = new Arguments(arguments, [
-        {'name': 'callback', 'type': 'string', 'class': 'String'}
-        {'name': 'namePattern', 'class': 'RegExp', 'optional': true},
-        {'name': 'options', 'class': 'Object', 'optional': true},
-        {'name': 'callback', 'class': 'Function'}
+    var args = new zvargs.Arguments(arguments, [
+        {'name': 'callback', 'type': 'string', 'class': String}
+        {'name': 'namePattern', 'class': RegExp, 'optional': true},
+        {'name': 'options', 'class': Object, 'optional': true},
+        {'name': 'callback', 'class': Function}
     ];
     var dir = args.dir;
     var namePattern = args.namePattern;
@@ -522,50 +522,4 @@ function resolveFileType(file) {
     }
 }
 
-
-// function (must0, [option0], [option1], must1, [options_extra...])
-function Arguments(args, spec) {
-    var i, j;
-    for (j = 0; j < spec.length; j ++) {
-        this[spec[j].name] = null;
-    }
-    
-    for (i = j = 0; i < args.length && j < spec.length; i ++) {
-        while (j < spec.length) {
-            var isMatched = true;
-
-            // test type
-            if (spec[j].hasOwnProperty('type') && typeof args[i] !== spec[j]['type']) {
-                isMatched = false;
-            }
-            
-            // test class
-            if (isMatched && spec[j].hasOwnProperty('class') && !(args[i] instanceof spec[j]['class'])) {
-                isMatched = false;
-            }
-            
-            if (!isMatched) {
-               if (spec[j].hasOwnProperty('optional') && spec[j].optional) {
-                    ++ j;
-                    continue; // to match next spec item.
-                } else {
-                    throw "Error: mismatching";
-                }
-            }
-
-            // matched
-            this[spec[j++].name] = args[i];
-            break;
-        }
-    }
-
-    // Stores remaining args items in `extra`.
-    if (i < args.length) {
-        this.extra = Array.prototype.slice.call(args, i);
-    }
-}
-
-
-
-          
 
