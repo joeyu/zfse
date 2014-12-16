@@ -41,11 +41,11 @@ module.exports = {
  * @param [...callback_arg] The parameters to be passed to the 'callback'.
  */
 function traverse() { // traverse(dir, [options], callback)
-    var args = new zvargs.Arguments(arguments, [
-        {'name': 'dir', 'type': 'string', 'class': 'String'},
-        {'name': 'options', 'class': Object, 'optional': true},
+    var args = new zvargs.VArgs(arguments, [
+        {'name': 'dir', 'type': 'string'},
+        {'name': 'options', 'type': Object, 'optional': true},
         {'name': 'callback', 'type': 'function'}
-    ];
+    ]);
     var dir = args.dir;
     var options = args.options;
     var callback = args.callback;
@@ -236,17 +236,16 @@ function sRename(dir, namePattern, newName, options) {
  * @param [...callback_arg] The parameters to be passed to the 'callback'.
  */
 function search() { // (dir, [namePattern], [options], callback, [callback_extra_arg...])
-    var args = new zvargs.Arguments(arguments, [
-        {'name': 'callback', 'type': 'string', 'class': String}
-        {'name': 'namePattern', 'class': RegExp, 'optional': true},
-        {'name': 'options', 'class': Object, 'optional': true},
-        {'name': 'callback', 'class': Function}
-    ];
+    var args = new zvargs.VArgs(arguments, [
+        {'name': 'namePattern', 'type': RegExp, 'optional': true},
+        {'name': 'options', 'type': Object, 'optional': true},
+        {'name': 'callback', 'type': Function}
+    ]);
     var dir = args.dir;
     var namePattern = args.namePattern;
     var options = args.options;
     var callback = args.callback;
-    var cbArgs = args.extra;
+    var cbArgs = args.__extra;
 
     traverse (dir, options, function (f) {
         var found = false;
